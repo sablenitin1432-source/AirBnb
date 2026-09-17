@@ -1,55 +1,128 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-            <!---- <br /><br /> -->
-            <h3> Create a New listing</h3>
-            <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
-                <div class="mb-3">
+<main class="listing-form-page">
+    <div class="listing-form-card">
+        <div class="listing-form-heading">
+            <p class="form-eyebrow">Share your space</p>
+            <h1>List your property</h1>
+            <p>Give travelers a clear, welcoming first look at the place you love.</p>
+        </div>
+
+        <form method="POST" action="/listings" novalidate class="needs-validation listing-form"
+            enctype="multipart/form-data">
+            <fieldset class="form-section">
+                <legend>Basic information</legend>
+                <p class="form-section-description">Start with the details guests will notice first.</p>
+                <div class="form-field">
                     <label for="title" class="form-label">Title</label>
-                    <input name="listing[title]" placeholder="Add a catchy title" type="text" class="form-control"
-                        required />
+                    <input name="listing[title]" id="title" placeholder="Give your stay a memorable title"
+                        type="text" class="form-control" required />
                     <div class="valid-feedback">Title looks good!</div>
                 </div>
-
-                <div class="mb-3">
+                <div class="form-field">
                     <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" placeholder="enter description" class="form-control"
-                        required></textarea>
+                    <textarea name="listing[description]" id="description"
+                        placeholder="Describe the atmosphere, setting, and details guests will enjoy."
+                        class="form-control" required></textarea>
                     <div class="invalid-feedback">Please enter a short description</div>
                 </div>
+            </fieldset>
 
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload Listing Image</label>
-                    <input name="listing[image]" type="file" class="form-control">
-                </div>
-
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input name="listing[price]" placeholder="1200" class="form-control" required>
+            <fieldset class="form-section">
+                <legend>Property details</legend>
+                <p class="form-section-description">Help guests understand what kind of stay you offer.</p>
+                <div class="form-grid form-grid-three">
+                    <div class="form-field">
+                        <label for="price" class="form-label">Price <span class="form-hint">per night</span></label>
+                        <div class="form-input-prefix">
+                            <span aria-hidden="true">&#8377;</span>
+                            <input name="listing[price]" id="price" placeholder="1200" type="number"
+                                class="form-control" required />
+                        </div>
                         <div class="invalid-feedback">Price should be valid</div>
                     </div>
+                    <div class="form-field">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category]" id="category" class="form-control">
+                            <option value="Trending">Trending</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Iconic Cities">Iconic Cities</option>
+                            <option value="Mountains">Mountains</option>
+                            <option value="Castles">Castles</option>
+                            <option value="Amazing Pools">Amazing Pools</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Domes">Domes</option>
+                            <option value="Boats">Boats</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="propertyType" class="form-label">Property type</label>
+                        <select name="listing[propertyType]" id="propertyType" class="form-control" required>
+                            <option value="" selected disabled>Select a type</option>
+                            <option value="Entire place">Entire place</option>
+                            <option value="Private room">Private room</option>
+                            <option value="Hotel room">Hotel room</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Cottage">Cottage</option>
+                            <option value="Cabin">Cabin</option>
+                            <option value="Lodge">Lodge</option>
+                            <option value="Treehouse">Treehouse</option>
+                            <option value="Boat">Boat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid form-grid-two">
+                    <div class="form-field">
+                        <label for="guests" class="form-label">Guests</label>
+                        <input name="listing[guests]" id="guests" type="number" min="1" step="1"
+                            class="form-control" placeholder="2" required />
+                    </div>
+                    <div class="form-field">
+                        <label for="bedrooms" class="form-label">Bedrooms</label>
+                        <input name="listing[bedrooms]" id="bedrooms" type="number" min="0" step="1"
+                            class="form-control" placeholder="1" required />
+                    </div>
+                </div>
+            </fieldset>
 
-                    <div class="mb-3 col-md-8">
+            <fieldset class="form-section">
+                <legend>Location</legend>
+                <p class="form-section-description">Share where guests can find your property.</p>
+                <div class="form-grid form-grid-two">
+                    <div class="form-field">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" id="location" placeholder="Jaipur, Rajasthan" type="text"
+                            class="form-control" required />
+                        <div class="invalid-feedback">Location should be valid</div>
+                    </div>
+                    <div class="form-field">
                         <label for="country" class="form-label">Country</label>
-                        <input name="listing[country]" placeholder="India" type="text" class="form-control" required>
-                        <div class="invalid-feedback">Country name should be valid
-                        </div>
+                        <input name="listing[country]" id="country" placeholder="India" type="text"
+                            class="form-control" required />
+                        <div class="invalid-feedback">Country name should be valid</div>
                     </div>
                 </div>
+            </fieldset>
 
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input name="listing[location]" placeholder="Jaipur, Rajasthan" type="text" class="form-control"
-                        required />
-                    <div class="invalid-feedback">Location should be valid
-                    </div>
-                </div>
+            <fieldset class="form-section form-upload-field">
+                <legend>Property image</legend>
+                <p class="form-section-description">Choose a clear image that gives guests a feel for the space.</p>
+                <label for="image" class="upload-dropzone">
+                    <span class="upload-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
+                    <span class="upload-title">Upload a listing image</span>
+                    <span class="upload-description">Use a well-lit photo of your property.</span>
+                    <span class="upload-button">Choose image</span>
+                    <input name="listing[image]" id="image" type="file" />
+                </label>
+            </fieldset>
 
-                <button class="btn btn-dark add-btn mt-3">Add</button>
-
-            </form>
-        </div>
+            <div class="form-actions">
+                <a href="/listings" class="form-cancel">Cancel</a>
+                <button class="btn add-btn form-submit" type="submit">Create listing</button>
+            </div>
+        </form>
     </div>
+</main>

@@ -4,7 +4,48 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = (async (req, res) => {
-    const allListings = await Listing.find({});
+    const categories = [
+        "Trending",
+        "Rooms",
+        "Iconic Cities",
+        "Mountains",
+        "Castles",
+        "Amazing Pools",
+        "Camping",
+        "Farms",
+        "Arctic",
+        "Domes",
+        "Boats",
+    ];
+    const searchQuery = typeof req.query.q === "string" ? req.query.q.trim() : "";
+    const categoryQuery = typeof req.query.category === "string"
+        && categories.includes(req.query.category)
+        ? req.query.category
+        : "";
+    res.locals.searchQuery = searchQuery;
+    res.locals.categoryQuery = categoryQuery;
+
+    let filter = {};
+    if (searchQuery) {
+        const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const searchRegex = new RegExp(escapedQuery, "i");
+        filter = {
+            $or: [
+                { title: searchRegex },
+                { description: searchRegex },
+                { location: searchRegex },
+                { country: searchRegex },
+            ],
+        };
+    }
+    if (categoryQuery) {
+        filter.category = categoryQuery;
+    }
+
+    const allListings = await Listing.find(filter).populate({
+        path: "reviews",
+        select: "rating",
+    });
     res.render("listings/index.ejs", { allListings });
 });
 

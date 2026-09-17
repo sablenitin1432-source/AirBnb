@@ -24,26 +24,34 @@
 </style>
 
 
-<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top site-navbar" aria-label="Primary navigation">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <a class="navbar-brand site-brand" href="/">
+            <i class="fa-regular fa-compass"></i>
+            <span>Wanderlust</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav site-nav-primary">
                 <a class="nav-link" href="/listings">Explore</a>
             </div>
-            <div class="navbar-nav ms-auto">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" 
-                    />
-                    <button class="btn search-btn" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i>Search</button>
+            <div class="navbar-nav ms-auto site-search-nav">
+                <form class="d-flex site-search-form" role="search" method="GET" action="/listings">
+                    <input class="form-control me-2 search-inp" type="search" name="q"
+                        placeholder="Search destinations"
+                        aria-label="Search stays by destination"
+                        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" />
+                    <button class="btn search-btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <span>Search</span>
+                    </button>
                 </form>
             </div>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/listings/new">Airbnb your home</a>
+            <div class="navbar-nav ms-auto site-nav-actions">
+                <a class="nav-link nav-link-property" href="/listings/new">List your property</a>
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link" href="/login"><b>Log in</b></a>

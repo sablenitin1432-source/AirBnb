@@ -17,6 +17,46 @@ const listingSchema = new Schema({
     price: Number,
     location: String,
     country: String,
+    propertyType: {
+        type: String,
+        enum: [
+            "Entire place",
+            "Private room",
+            "Hotel room",
+            "Apartment",
+            "Villa",
+            "Cottage",
+            "Cabin",
+            "Lodge",
+            "Treehouse",
+            "Boat",
+        ],
+    },
+    guests: {
+        type: Number,
+        min: 1,
+    },
+    bedrooms: {
+        type: Number,
+        min: 0,
+    },
+    category: {
+        type: String,
+        enum: [
+            "Trending",
+            "Rooms",
+            "Iconic Cities",
+            "Mountains",
+            "Castles",
+            "Amazing Pools",
+            "Camping",
+            "Farms",
+            "Arctic",
+            "Domes",
+            "Boats",
+        ],
+        set: (value) => value === "" ? undefined : value,
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,

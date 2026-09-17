@@ -3,11 +3,12 @@
     <style>
         #filters {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             align-items: center;
         }
 
         .filter {
+            min-width: 4.75rem;
             text-align: center;
             margin-right: 2rem;
             margin-top: 2rem;
@@ -38,99 +39,311 @@
         }
     </style>
 
-    <div id="filters">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
+    <% const categoryLinkPrefix=searchQuery ? `?q=${encodeURIComponent(searchQuery)}&category=` : "?category=" ; %>
+        <% const allListingsHref=searchQuery ? `/listings?q=${encodeURIComponent(searchQuery)}` : "/listings" ; %>
+            <% const hasActiveFilters=Boolean(searchQuery || categoryQuery); %>
 
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
+                <section class="listings-hero">
+                    <div class="listings-hero-content">
+                        <p class="eyebrow">Find your next stay</p>
+                        <h1>Escape to Luxury</h1>
+                        <p class="listings-subtitle">Discover comfortable stays, inspiring destinations, and memorable
+                            places around the world.</p>
+                        <div class="hero-actions">
+                            <a href="/listings" class="hero-action hero-action-primary">Explore stays</a>
+                            <a href="/listings/new" class="hero-action hero-action-secondary">List your property</a>
+                        </div>
+                    </div>
 
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
+                    <form class="browse-search" method="GET" action="/listings" role="search"
+                        aria-label="Search available stays">
+                        <div class="browse-search-field browse-search-location">
+                            <label for="browse-search-location">Location</label>
+                            <div class="browse-search-value">
+                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                <input id="browse-search-location" type="search" name="q" value="<%= searchQuery %>"
+                                    placeholder="Where do you want to go?" autocomplete="off"
+                                    aria-label="Search by destination, location, or country" />
+                            </div>
+                        </div>
+                        <div class="browse-search-field">
+                            <label for="browse-search-category">Category</label>
+                            <div class="browse-search-value">
+                                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                                <select id="browse-search-category" name="category"
+                                    aria-label="Filter stays by category">
+                                    <option value="">All stays</option>
+                                    <option value="Trending" <%=categoryQuery==='Trending' ? 'selected' : '' %>>Trending
+                                    </option>
+                                    <option value="Rooms" <%=categoryQuery==='Rooms' ? 'selected' : '' %>>Rooms</option>
+                                    <option value="Iconic Cities" <%=categoryQuery==='Iconic Cities' ? 'selected' : ''
+                                        %>>Iconic Cities</option>
+                                    <option value="Mountains" <%=categoryQuery==='Mountains' ? 'selected' : '' %>
+                                        >Mountains</option>
+                                    <option value="Castles" <%=categoryQuery==='Castles' ? 'selected' : '' %>>Castles
+                                    </option>
+                                    <option value="Amazing Pools" <%=categoryQuery==='Amazing Pools' ? 'selected' : ''
+                                        %>>Amazing Pools</option>
+                                    <option value="Camping" <%=categoryQuery==='Camping' ? 'selected' : '' %>>Camping
+                                    </option>
+                                    <option value="Farms" <%=categoryQuery==='Farms' ? 'selected' : '' %>>Farms</option>
+                                    <option value="Arctic" <%=categoryQuery==='Arctic' ? 'selected' : '' %>>Arctic
+                                    </option>
+                                    <option value="Domes" <%=categoryQuery==='Domes' ? 'selected' : '' %>>Domes</option>
+                                    <option value="Boats" <%=categoryQuery==='Boats' ? 'selected' : '' %>>Boats</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="browse-search-button" type="submit">
+                            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                            <span>Search stays</span>
+                        </button>
+                    </form>
+                </section>
 
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountains</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-solid fa-chess-rook"></i></div>
-            <p>Castles</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Amazing Pools</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></div>
-            <p>Camping</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-solid fa-cow"></i></div>
-            <p>Farms</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-regular fa-snowflake"></i></div>
-            <p>Arctic</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-igloo"></i></i></div>
-            <p>Domes</p>
-        </div>
-
-        <div class="filter">
-            <div><i class="fa-solid fa-ship"></i></div>
-            <p>Boats</p>
-        </div>
-        <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexswitchCheckDefault">
-                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-        <% for (let listing of allListings) { %>
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-                <div class="card col listing-card">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image"
-                        style="height: 20rem;" />
-                    <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b>
-                                <%= listing.title %> <br />
-                            </b>
-                            &#8377; <%=listing.price.toLocaleString("en-IN") %> / night
-                                <i class="tax-info">&nbsp; &nbsp;+18% GST</i>
+                <section class="listings-intro">
+                    <div>
+                        <p class="eyebrow">Explore stays</p>
+                        <h2>Find your next stay</h2>
+                        <p class="listings-count">
+                            <strong>
+                                <%= allListings.length %>
+                            </strong>
+                            <%= allListings.length===1 ? 'stay' : 'stays' %>
+                                <% if (categoryQuery) { %>
+                                    in <strong>
+                                        <%= categoryQuery %>
+                                    </strong>
+                                    <% } else if (searchQuery) { %>
+                                        matching <strong>"<%= searchQuery %>"</strong>
+                                        <% } %>
                         </p>
                     </div>
-                </div>
-            </a>
-            <% } %>
-    </div>
-    <script>
-        let taxSwitch = document.getElementById("flexswitchCheckDefault");
-        taxSwitch.addEventListener("click", () => {
-            let taxInfo = document.getElementsByClassName("tax-info");
-            for (info of taxInfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
-                }
-            }
+                    <% if (hasActiveFilters) { %>
+                        <a href="/listings" class="clear-filters">
+                            <i class="fa-solid fa-xmark"></i>
+                            Clear filters
+                        </a>
+                        <% } %>
+                </section>
 
-        });
-    </script>
+                <div id="filters" class="listing-filters" aria-label="Listing categories">
+                    <a href="<%= allListingsHref %>" class="filter <%= !categoryQuery ? 'active' : '' %>"
+                        <%=!categoryQuery ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-border-all" aria-hidden="true"></i></div>
+                        <p>All</p>
+                    </a>
+                    <a href="<%= categoryLinkPrefix %>Trending"
+                        class="filter <%= categoryQuery === 'Trending' ? 'active' : '' %>" <%=categoryQuery==='Trending'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-fire" aria-hidden="true"></i></div>
+                        <p>Trending</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Rooms"
+                        class="filter <%= categoryQuery === 'Rooms' ? 'active' : '' %>" <%=categoryQuery==='Rooms'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-bed" aria-hidden="true"></i></div>
+                        <p>Rooms</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Iconic%20Cities"
+                        class="filter <%= categoryQuery === 'Iconic Cities' ? 'active' : '' %>"
+                        <%=categoryQuery==='Iconic Cities' ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-mountain-city" aria-hidden="true"></i></div>
+                        <p>Iconic Cities</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Mountains"
+                        class="filter <%= categoryQuery === 'Mountains' ? 'active' : '' %>"
+                        <%=categoryQuery==='Mountains' ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-mountain" aria-hidden="true"></i></div>
+                        <p>Mountains</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Castles"
+                        class="filter <%= categoryQuery === 'Castles' ? 'active' : '' %>" <%=categoryQuery==='Castles'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-chess-rook" aria-hidden="true"></i></div>
+                        <p>Castles</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Amazing%20Pools"
+                        class="filter <%= categoryQuery === 'Amazing Pools' ? 'active' : '' %>"
+                        <%=categoryQuery==='Amazing Pools' ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-person-swimming" aria-hidden="true"></i></div>
+                        <p>Amazing Pools</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Camping"
+                        class="filter <%= categoryQuery === 'Camping' ? 'active' : '' %>" <%=categoryQuery==='Camping'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-campground" aria-hidden="true"></i></div>
+                        <p>Camping</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Farms"
+                        class="filter <%= categoryQuery === 'Farms' ? 'active' : '' %>" <%=categoryQuery==='Farms'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
+                        <p>Farms</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Arctic"
+                        class="filter <%= categoryQuery === 'Arctic' ? 'active' : '' %>" <%=categoryQuery==='Arctic'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-regular fa-snowflake" aria-hidden="true"></i></div>
+                        <p>Arctic</p>
+                    </a>
+                    <a href="<%= categoryLinkPrefix %>Domes"
+                        class="filter <%= categoryQuery === 'Domes' ? 'active' : '' %>" <%=categoryQuery==='Domes'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-igloo" aria-hidden="true"></i></div>
+                        <p>Domes</p>
+                    </a>
+
+                    <a href="<%= categoryLinkPrefix %>Boats"
+                        class="filter <%= categoryQuery === 'Boats' ? 'active' : '' %>" <%=categoryQuery==='Boats'
+                        ? ' aria-current="page"' : '' %>>
+                        <div class="category-icon"><i class="fa-solid fa-ship" aria-hidden="true"></i></div>
+                        <p>Boats</p>
+                    </a>
+                    <div class="tax-toggle">
+                        <div class="form-check-reverse form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexswitchCheckDefault">
+                            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 mt-2 listings-grid">
+                    <% for (let listing of allListings) { %>
+                        <% const reviews=Array.isArray(listing.reviews) ? listing.reviews : []; %>
+                            <% const validRatings=reviews .map(review=> Number(review && review.rating))
+                                .filter(rating => Number.isFinite(rating) && rating >= 1 && rating <= 5); %>
+                                    <% const averageRating=validRatings.length ? (validRatings.reduce((sum, rating)=>
+                                        sum + rating, 0) / validRatings.length).toFixed(1)
+                                        : null; %>
+                                        <a href="/listings/<%= listing._id %>" class="listing-link">
+                                            <div class="card col listing-card">
+                                                <div class="listing-image-wrap">
+                                                    <img src="<%= listing.image.url %>"
+                                                        class="card-img-top listing-image" alt="<%= listing.title %>" />
+                                                </div>
+                                                <div class="card-img-overlay"></div>
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <% if (listing.category) { %>
+                                                            <span class="listing-category">
+                                                                <%= listing.category %>
+                                                            </span>
+                                                            <% } %>
+                                                                <b class="listing-title">
+                                                                                <%= listing.title %>
+                                                                </b>
+                                                                <span class="listing-location">
+                                                                    <%= listing.location %>, <%= listing.country %>
+                                                                </span>
+                                                                <% if (averageRating !==null) { %>
+                                                                    <span class="listing-rating"
+                                                                        aria-label="<%= averageRating %> out of 5 from <%= reviews.length %> reviews">
+                                                                        <i class="fa-solid fa-star"
+                                                                            aria-hidden="true"></i>
+                                                                        <strong>
+                                                                            <%= averageRating %>
+                                                                        </strong>
+                                                                        <span>· <%= reviews.length %>
+                                                                                <%= reviews.length===1 ? 'review'
+                                                                                    : 'reviews' %></span>
+                                                                    </span>
+                                                                    <% } %>
+                                                                        <% if (listing.propertyType || listing.guests ||
+                                                                            listing.bedrooms !==undefined &&
+                                                                            listing.bedrooms !==null) { %>
+                                                                            <span class="listing-metadata"
+                                                                                aria-label="Listing details">
+                                                                                <% if (listing.propertyType) { %>
+                                                                                    <span class="listing-metadata-item">
+                                                                                        <i class="fa-solid fa-house"
+                                                                                            aria-hidden="true"></i>
+                                                                                        <%= listing.propertyType %>
+                                                                                    </span>
+                                                                                    <% } %>
+                                                                                        <% if (listing.guests) { %>
+                                                                                            <span
+                                                                                                class="listing-metadata-item">
+                                                                                                <i class="fa-solid fa-user-group"
+                                                                                                    aria-hidden="true"></i>
+                                                                                                <%= listing.guests %>
+                                                                                                    <%= listing.guests===1
+                                                                                                        ? 'guest'
+                                                                                                        : 'guests' %>
+                                                                                            </span>
+                                                                                            <% } %>
+                                                                                                <% if (listing.bedrooms
+                                                                                                    !==undefined &&
+                                                                                                    listing.bedrooms
+                                                                                                    !==null) { %>
+                                                                                                    <span
+                                                                                                        class="listing-metadata-item">
+                                                                                                        <i class="fa-solid fa-bed"
+                                                                                                            aria-hidden="true"></i>
+                                                                                                        <%= listing.bedrooms
+                                                                                                            %>
+                                                                                                            <%= listing.bedrooms===1
+                                                                                                                ? 'bedroom'
+                                                                                                                : 'bedrooms'
+                                                                                                                %>
+                                                                                                    </span>
+                                                                                                    <% } %>
+                                                                            </span>
+                                                                            <% } %>
+                                                                                <span class="listing-details">
+                                                                                    <span class="listing-price">&#8377;
+                                                                                        <%=listing.price.toLocaleString("en-IN")
+                                                                                            %></span>
+                                                                                    <span class="listing-night"> /
+                                                                                        night</span>
+                                                                                    <i class="tax-info">&nbsp;
+                                                                                        &nbsp;+18% GST</i>
+                                                                                </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <% } %>
+                </div>
+                <% if (allListings.length===0) { %>
+                    <div class="empty-listings" role="status">
+                        <i class="fa-regular fa-compass"></i>
+                        <h2>No stays found<% if (categoryQuery) { %> in <%= categoryQuery %>
+                                    <% } %>
+                        </h2>
+                        <p>
+                            <% if (searchQuery) { %>
+                                Try a different search or clear your filters to browse all stays.
+                                <% } else if (categoryQuery) { %>
+                                    Try another category or clear your filters to browse all stays.
+                                    <% } else { %>
+                                        Try searching for a different destination or browse all stays.
+                                        <% } %>
+                        </p>
+                        <% if (hasActiveFilters) { %>
+                            <a href="/listings" class="btn btn-outline-dark empty-listings-action">Clear filters</a>
+                            <% } %>
+                    </div>
+                    <% } %>
+                        <script>
+                            let taxSwitch = document.getElementById("flexswitchCheckDefault");
+                            taxSwitch.addEventListener("click", () => {
+                                let taxInfo = document.getElementsByClassName("tax-info");
+                                for (info of taxInfo) {
+                                    if (info.style.display != "inline") {
+                                        info.style.display = "inline";
+                                    } else {
+                                        info.style.display = "none";
+                                    }
+                                }
+
+                            });
+                        </script>
