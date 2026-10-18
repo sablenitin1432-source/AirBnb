@@ -113,7 +113,15 @@ module.exports.createListing = async (req, res, next) => {
   newListing.geometry = geometry;
   newListing.mapboxPlaceName = mapboxPlaceName;
 
-  let saved = await newListing.save();
+  // let saved = await newListing.save();
+  let saved;
+
+  try {
+    saved = await newListing.save();
+  } catch (err) {
+    console.error("CREATE LISTING SAVE ERROR:", err);
+    throw err;
+  }
   console.log(" Saved Listing:", saved);
 
   req.flash("success", "New listing created successfully!");
@@ -138,7 +146,7 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateForm = async (req, res) => {
   const { id } = req.params;
-  
+
   let listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing not found");
