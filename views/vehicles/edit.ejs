@@ -1,0 +1,230 @@
+<% layout("layouts/boilerplate")%>
+
+    <style>
+        .form-page {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-page h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF385C;
+            box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FF385C, #E31C5F);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 56, 92, 0.3);
+        }
+
+        .current-image {
+            margin-bottom: 1rem;
+        }
+
+        .current-image img {
+            max-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-image p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="form-page">
+        <h1>🏍️ Edit Vehicle</h1>
+
+        <form action="/vehicles/<%= vehicle._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Vehicle Title *</label>
+                <input type="text" name="vehicle[title]" id="title" value="<%= vehicle.title %>" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vehicleType">Vehicle Type *</label>
+                    <select name="vehicle[vehicleType]" id="vehicleType" required>
+                        <option value="bike" <%=vehicle.vehicleType==='bike' ? 'selected' : '' %>>Bike</option>
+                        <option value="scooter" <%=vehicle.vehicleType==='scooter' ? 'selected' : '' %>>Scooter</option>
+                        <option value="car" <%=vehicle.vehicleType==='car' ? 'selected' : '' %>>Car</option>
+                        <option value="suv" <%=vehicle.vehicleType==='suv' ? 'selected' : '' %>>SUV</option>
+                        <option value="van" <%=vehicle.vehicleType==='van' ? 'selected' : '' %>>Van</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pricePerDay">Price per Day (₹) *</label>
+                    <input type="number" name="vehicle[pricePerDay]" id="pricePerDay" value="<%= vehicle.pricePerDay %>"
+                        required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <input type="text" name="vehicle[brand]" id="brand" value="<%= vehicle.brand || '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <input type="text" name="vehicle[model]" id="model" value="<%= vehicle.model || '' %>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input type="number" name="vehicle[year]" id="year" value="<%= vehicle.year || '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="seats">Seats</label>
+                    <input type="number" name="vehicle[seats]" id="seats" value="<%= vehicle.seats || 2 %>">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fuelType">Fuel Type</label>
+                    <select name="vehicle[fuelType]" id="fuelType">
+                        <option value="Petrol" <%=vehicle.fuelType==='Petrol' ? 'selected' : '' %>>Petrol</option>
+                        <option value="Diesel" <%=vehicle.fuelType==='Diesel' ? 'selected' : '' %>>Diesel</option>
+                        <option value="Electric" <%=vehicle.fuelType==='Electric' ? 'selected' : '' %>>Electric</option>
+                        <option value="CNG" <%=vehicle.fuelType==='CNG' ? 'selected' : '' %>>CNG</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select name="vehicle[transmission]" id="transmission">
+                        <option value="Manual" <%=vehicle.transmission==='Manual' ? 'selected' : '' %>>Manual</option>
+                        <option value="Automatic" <%=vehicle.transmission==='Automatic' ? 'selected' : '' %>>Automatic
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location *</label>
+                <input type="text" name="vehicle[location]" id="location" value="<%= vehicle.location %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="vehicle[description]" id="description"
+                    rows="4"><%= vehicle.description || '' %></textarea>
+            </div>
+
+            <% if ((vehicle.images && vehicle.images.length > 0) || (vehicle.image && vehicle.image.url)) { %>
+                <div class="form-group current-image">
+                    <label>Current Images</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <% if (vehicle.images && vehicle.images.length > 0) { %>
+                            <% vehicle.images.forEach((img, i) => { %>
+                                <img src="<%= img.url %>" alt="Vehicle image <%= i+1 %>"
+                                     style="width: 100px; height: 80px; object-fit: cover; border-radius: 8px;">
+                            <% }); %>
+                        <% } else if (vehicle.image && vehicle.image.url) { %>
+                            <img src="<%= vehicle.image.url %>" alt="Vehicle image"
+                                 style="width: 100px; height: 80px; object-fit: cover; border-radius: 8px;">
+                        <% } %>
+                    </div>
+                    <p>Upload new images below to replace them</p>
+                </div>
+            <% } %>
+
+            <div class="form-group">
+                <label>📸 Upload New Images (up to 5 photos)</label>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 1 (Main Photo)</label>
+                    <input type="file" name="vehicle[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 2</label>
+                    <input type="file" name="vehicle[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 3</label>
+                    <input type="file" name="vehicle[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 4</label>
+                    <input type="file" name="vehicle[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 5</label>
+                    <input type="file" name="vehicle[image]" accept="image/*">
+                </div>
+                <small class="text-muted">Leave empty to keep existing photos.</small>
+            </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="vehicle[instantBook]" value="true" <%=vehicle.instantBook
+                                ? 'checked' : '' %>>
+                            Enable Instant Booking
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Update Vehicle</button>
+        </form>
+    </div>

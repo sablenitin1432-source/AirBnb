@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wanderlust AirBnb — Bar Graph</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 0;
+            padding: 40px;
+        }
+        h1 { text-align: center; font-size: 30px; margin-bottom: 5px; }
+        h2 { text-align: center; font-size: 15px; color: gray; margin-bottom: 40px; }
+        
+        table { margin: 0 auto; border-collapse: collapse; }
+        
+        .bar-cell {
+            vertical-align: bottom;
+            text-align: center;
+            padding: 0 6px;
+            height: 400px;
+        }
+        .bar-cell div {
+            width: 65px;
+            border-radius: 6px 6px 0 0;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 8px;
+            color: white;
+            font-weight: 900;
+            font-size: 13px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .bar-cell div .bar-num {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .bar-cell div .bar-name {
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .lbl-cell {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 5px 0;
+            border-top: 3px solid #222;
+            color: #333;
+        }
+        
+        .total {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 24px;
+            font-weight: 900;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .total span { color: #00d2ff; font-size: 40px; }
+    </style>
+</head>
+<body>
+
+<h1>WANDERLUST AIRBNB</h1>
+<h2>Complete Project Statistics — Bar Graph</h2>
+
+<table>
+    <tr>
+        <td class="bar-cell">
+            <div style="height:390px; background:#EF4444;">
+                <span class="bar-num">78</span>
+                <span class="bar-name">Model<br>Fields</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:350px; background:#3B82F6;">
+                <span class="bar-num">70</span>
+                <span class="bar-name">API<br>Endpoints</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:180px; background:#22C55E;">
+                <span class="bar-num">36</span>
+                <span class="bar-name">EJS<br>Views</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:175px; background:#F97316;">
+                <span class="bar-num">35</span>
+                <span class="bar-name">JS<br>Files</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:80px; background:#8B5CF6;">
+                <span class="bar-num">16</span>
+                <span class="bar-name">NPM<br>Deps</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:55px; background:#06B6D4;">
+                <span class="bar-num">9</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:55px; background:#EAB308;">
+                <span class="bar-num">9</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:38px; background:#EC4899;">
+                <span class="bar-num">6</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:38px; background:#14B8A6;">
+                <span class="bar-num">6</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:32px; background:#84CC16;">
+                <span class="bar-num">5</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:28px; background:#D946EF;">
+                <span class="bar-num">4</span>
+            </div>
+        </td>
+        <td class="bar-cell">
+            <div style="height:24px; background:#F43F5E;">
+                <span class="bar-num">3</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="lbl-cell">Model<br>Fields</td>
+        <td class="lbl-cell">API<br>Endpoints</td>
+        <td class="lbl-cell">EJS<br>Views</td>
+        <td class="lbl-cell">JS<br>Files</td>
+        <td class="lbl-cell">NPM<br>Deps</td>
+        <td class="lbl-cell">Control-<br>lers</td>
+        <td class="lbl-cell">Route<br>Files</td>
+        <td class="lbl-cell">Models</td>
+        <td class="lbl-cell">Ext<br>Services</td>
+        <td class="lbl-cell">Seed<br>Files</td>
+        <td class="lbl-cell">CSS<br>Files</td>
+        <td class="lbl-cell">Client<br>JS</td>
+    </tr>
+</table>
+
+<div class="total">
+    TOTAL: <span>277</span> COMPONENTS
+</div>
+
+</body>
+</html>

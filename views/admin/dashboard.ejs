@@ -1,0 +1,319 @@
+<% layout("layouts/boilerplate") %>
+
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #FF385C;
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF385C, #E31C5F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-nav a {
+            padding: 0.75rem 1.5rem;
+            background: #f7f7f7;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background: linear-gradient(135deg, #FF385C, #E31C5F);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .stat-card .label {
+            color: #717171;
+            font-size: 0.9rem;
+        }
+
+        .stat-card.users .icon {
+            color: #667eea;
+        }
+
+        .stat-card.listings .icon {
+            color: #FF385C;
+        }
+
+        .stat-card.vehicles .icon {
+            color: #00A699;
+        }
+
+        .stat-card.dhabas .icon {
+            color: #FF9800;
+        }
+
+        .stat-card.bookings .icon {
+            color: #9C27B0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recent-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .recent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recent-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .recent-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ebebeb;
+        }
+
+        .recent-item:last-child {
+            border-bottom: none;
+        }
+
+        .recent-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .recent-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .recent-info p {
+            font-size: 0.8rem;
+            color: #717171;
+            margin: 0;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-admin {
+            background: #FFE4E8;
+            color: #FF385C;
+        }
+
+        .badge-user {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .badge-confirmed {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .badge-pending {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .badge-cancelled {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+    </style>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-shield-alt"></i> Admin Dashboard</h1>
+            <span style="color: #717171;">Welcome, <%= currUser.username %></span>
+        </div>
+
+        <nav class="admin-nav">
+            <a href="/admin" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/admin/users"><i class="fas fa-users"></i> Users</a>
+            <a href="/admin/listings"><i class="fas fa-building"></i> Listings</a>
+            <a href="/admin/vehicles"><i class="fas fa-car"></i> Vehicles</a>
+            <a href="/admin/dhabas"><i class="fas fa-utensils"></i> Dhabas</a>
+            <a href="/admin/bookings"><i class="fas fa-calendar-check"></i> Bookings</a>
+        </nav>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card users">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <div class="number">
+                    <%= usersCount %>
+                </div>
+                <div class="label">Total Users</div>
+            </div>
+            <div class="stat-card listings">
+                <div class="icon"><i class="fas fa-building"></i></div>
+                <div class="number">
+                    <%= listingsCount %>
+                </div>
+                <div class="label">Total Listings</div>
+            </div>
+            <div class="stat-card vehicles">
+                <div class="icon"><i class="fas fa-car"></i></div>
+                <div class="number">
+                    <%= vehiclesCount %>
+                </div>
+                <div class="label">Total Vehicles</div>
+            </div>
+            <div class="stat-card dhabas">
+                <div class="icon"><i class="fas fa-utensils"></i></div>
+                <div class="number">
+                    <%= dhabasCount %>
+                </div>
+                <div class="label">Total Dhabas</div>
+            </div>
+            <div class="stat-card bookings">
+                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="number">
+                    <%= bookingsCount %>
+                </div>
+                <div class="label">Total Bookings</div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-grid">
+            <div class="recent-card">
+                <h3 class="section-title"><i class="fas fa-user-plus"></i> Recent Users</h3>
+                <% if (recentUsers && recentUsers.length> 0) { %>
+                    <% recentUsers.forEach(user=> { %>
+                        <div class="recent-item">
+                            <div class="recent-avatar">
+                                <%= user.username.charAt(0).toUpperCase() %>
+                            </div>
+                            <div class="recent-info" style="flex: 1;">
+                                <h4>
+                                    <%= user.username %>
+                                </h4>
+                                <p>
+                                    <%= user.email %>
+                                </p>
+                            </div>
+                            <span class="badge badge-<%= user.role %>">
+                                <%= user.role %>
+                            </span>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p style="color: #717171; text-align: center; padding: 2rem;">No users yet</p>
+                                <% } %>
+            </div>
+
+            <div class="recent-card">
+                <h3 class="section-title"><i class="fas fa-receipt"></i> Recent Bookings</h3>
+                <% if (recentBookings && recentBookings.length> 0) { %>
+                    <% recentBookings.forEach(booking=> { %>
+                        <div class="recent-item">
+                            <div class="recent-avatar" style="background: linear-gradient(135deg, #FF385C, #E31C5F);">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <div class="recent-info" style="flex: 1;">
+                                <h4>
+                                    <% if (booking.listing) { %>
+                                        <%= booking.listing.title %>
+                                            <% } else if (booking.vehicle) { %>
+                                                <%= booking.vehicle.title %>
+                                                    <% } else if (booking.dhaba) { %>
+                                                        <%= booking.dhaba.title %>
+                                                            <% } %>
+                                </h4>
+                                <p>By <%= booking.guest ? booking.guest.username : 'Unknown' %>
+                                </p>
+                            </div>
+                            <span class="badge badge-<%= booking.status || 'pending' %>">
+                                <%= booking.status || 'pending' %>
+                            </span>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p style="color: #717171; text-align: center; padding: 2rem;">No bookings yet</p>
+                                <% } %>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,700 @@
+<% layout("layouts/boilerplate")%>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Bebas+Neue&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Hero Section */
+        .dhabas-hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            margin-left: calc(-50vw + 50%);
+            margin-top: -1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
+        }
+
+        .dhabas-hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.7) contrast(1.05);
+        }
+
+        .dhabas-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, 
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.1) 40%,
+                rgba(0, 0, 0, 0.5) 100%
+            );
+            z-index: 1;
+        }
+
+        .dhabas-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 0 2rem;
+            animation: luxuryFadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes luxuryFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dhabas-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+
+        .dhabas-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 0.05em;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dhabas-hero-content a.hero-btn.primary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .dhabas-hero-content a.hero-btn.primary:hover {
+            background: white !important;
+            color: #1a1a2e !important;
+            border-color: white !important;
+        }
+
+        .dhabas-hero-content a.hero-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .dhabas-hero-content a.hero-btn.secondary:hover {
+            background: white !important;
+            color: #1a1a2e !important;
+            border-color: white !important;
+        }
+
+        .hero-btn i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Page Content */
+        .dhabas-page {
+            padding: 2rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .dhabas-count {
+            color: #717171;
+            font-size: 0.95rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.6rem 1.25rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #222;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: linear-gradient(135deg, #D2691E, #8B4513);
+            color: white;
+            border-color: #D2691E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(210, 105, 30, 0.25);
+        }
+
+        .filter-tab i {
+            margin-right: 0.5rem;
+        }
+
+        /* Dhabas Grid - Luxury Design */
+        .dhabas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dhaba-card {
+            background: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .dhaba-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .dhaba-card__image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .dhaba-card__image-wrapper:hover .dhaba-card__image {
+            transform: scale(1.08);
+        }
+
+        .dhaba-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dhaba-card__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.1) 70%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dhaba-card:hover .dhaba-card__overlay {
+            opacity: 1;
+        }
+
+        .dhaba-card__wishlist {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .dhaba-card__wishlist:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .dhaba-card__wishlist i {
+            font-size: 0.9rem;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .dhaba-card__wishlist.active i {
+            color: #e31c5f;
+        }
+
+        .dhaba-card__badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #c9a227;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            z-index: 5;
+        }
+
+        .verified-badge {
+            position: absolute;
+            top: 1rem;
+            right: 3.5rem;
+            background: linear-gradient(135deg, #00A699, #008B7D);
+            color: white;
+            padding: 0.35rem 0.9rem;
+            border-radius: 25px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            z-index: 5;
+        }
+
+        .dhaba-card__content {
+            padding: 1.5rem;
+        }
+
+        .dhaba-card__location {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #c9a227;
+            margin-bottom: 0.5rem;
+        }
+
+        .dhaba-card__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .dhaba-card__details {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .dhaba-card__cuisine {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cuisine-tag {
+            background: linear-gradient(135deg, #fff5eb 0%, #ffe8d6 100%);
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: #8B4513;
+            font-weight: 500;
+        }
+
+        .dhaba-card__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .dhaba-card__price {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .dhaba-card__price span {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .dhaba-card__rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            color: #1a1a1a;
+        }
+
+        .dhaba-card__rating i {
+            color: #c9a227;
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #fff5eb 0%, #ffe8d6 100%);
+            border-radius: 20px;
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: #D2691E;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: #555;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            color: #717171;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dhabas-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dhabas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+<!-- Hero Section -->
+<section class="dhabas-hero">
+    <video autoplay loop muted playsinline>
+        <source src="/videos/RestaurantsBackground.webm" type="video/webm">
+    </video>
+    <div class="dhabas-hero-content">
+        <h1>Taste the Tradition</h1>
+        <p>Discover authentic local flavors, hidden gems, and the best dining spots near you.</p>
+        <div class="hero-buttons">
+            <a href="/dhabas/new" class="hero-btn primary" style="background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.6); padding: 1rem 2.5rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease;" onmouseover="this.style.background='white'; this.style.color='black'; this.style.borderColor='white';" onmouseout="this.style.background='transparent'; this.style.color='white'; this.style.borderColor='rgba(255, 255, 255, 0.6)';">
+                <i class="fas fa-plus"></i> List Your Dhaba
+            </a>
+            <a href="/map?type=dhabas" class="hero-btn secondary" style="background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.6); padding: 1rem 2.5rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease;" onmouseover="this.style.background='white'; this.style.color='black'; this.style.borderColor='white';" onmouseout="this.style.background='transparent'; this.style.color='white'; this.style.borderColor='rgba(255, 255, 255, 0.6)';">
+                <i class="fas fa-map-marker-alt"></i> Map View
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Luxury Search Bar for Dining -->
+<div class="booking-bar-wrapper" style="position: relative; margin: -3rem auto 3rem; max-width: 1000px; z-index: 10;">
+    <form class="booking-bar" action="/dhabas/search" method="GET" style="background: white; display: flex; align-items: stretch; justify-content: flex-start; padding: 0; position: relative; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);">
+        <!-- Location Field -->
+        <div class="booking-bar__field location" style="display: flex; flex-direction: column; justify-content: center; padding: 1.25rem 1.75rem; border-right: 1px solid #e5e5e5; min-width: 200px; cursor: pointer; transition: background 0.3s ease; position: relative;">
+            <label class="booking-bar__label" style="font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.5rem;">Location</label>
+            <input type="text" class="booking-bar__input" name="location" placeholder="Where do you want to eat?" style="font-family: var(--font-sans); font-size: 0.9rem; color: #666; border: none; outline: none; background: transparent; width: 100%; cursor: text; position: relative; z-index: 5; padding: 0;">
+        </div>
+        
+        <!-- Cuisine Field -->
+        <div class="booking-bar__field cuisine" style="display: flex; flex-direction: column; justify-content: center; padding: 1.25rem 1.75rem; border-right: 1px solid #e5e5e5; min-width: 180px; cursor: pointer; transition: background 0.3s ease; position: relative;">
+            <label class="booking-bar__label" style="font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.5rem;">Cuisine Type</label>
+            <select class="booking-bar__input" name="cuisine" style="font-family: var(--font-sans); font-size: 0.9rem; color: #666; border: none; outline: none; background: transparent; width: 100%; cursor: pointer; position: relative; z-index: 5; padding: 0;">
+                <option value="">All Cuisines</option>
+                <option value="Indian">Indian</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Italian">Italian</option>
+                <option value="Continental">Continental</option>
+                <option value="Street Food">Street Food</option>
+            </select>
+        </div>
+        
+        <!-- Price Range Field -->
+        <div class="booking-bar__field price-range" style="display: flex; flex-direction: column; justify-content: center; padding: 1.25rem 1.75rem; border-right: 1px solid #e5e5e5; min-width: 160px; cursor: pointer; transition: background 0.3s ease; position: relative;">
+            <label class="booking-bar__label" style="font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.5rem;">Price Range</label>
+            <select class="booking-bar__input" name="priceRange" style="font-family: var(--font-sans); font-size: 0.9rem; color: #666; border: none; outline: none; background: transparent; width: 100%; cursor: pointer; position: relative; z-index: 5; padding: 0;">
+                <option value="">Any Price</option>
+                <option value="₹">Budget (₹)</option>
+                <option value="₹₹">Moderate (₹₹)</option>
+                <option value="₹₹₹">Expensive (₹₹₹)</option>
+                <option value="₹₹₹₹">Fine Dining (₹₹₹₹)</option>
+            </select>
+        </div>
+        
+        <!-- Category Field -->
+        <div class="booking-bar__field category" style="display: flex; flex-direction: column; justify-content: center; padding: 1.25rem 1.75rem; border-right: 1px solid #e5e5e5; min-width: 160px; cursor: pointer; transition: background 0.3s ease; position: relative;">
+            <label class="booking-bar__label" style="font-family: var(--font-sans); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.5rem;">Category</label>
+            <select class="booking-bar__input" name="category" style="font-family: var(--font-sans); font-size: 0.9rem; color: #666; border: none; outline: none; background: transparent; width: 100%; cursor: pointer; position: relative; z-index: 5; padding: 0;">
+                <option value="">All Categories</option>
+                <option value="Dhaba">Dhaba</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Street Food">Street Food</option>
+                <option value="Tea Stall">Tea Stall</option>
+            </select>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="booking-bar__submit" style="background: #1a1a1a; color: white; border: none; padding: 1.25rem 2.5rem; font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.3s ease; white-space: nowrap;">
+            <i class="fas fa-search"></i> Search Restaurants
+        </button>
+    </form>
+</div>
+
+<div class="dhabas-page">
+    <!-- Section Header -->
+    <div class="section-header">
+        <div>
+            <h2>Trending Dining</h2>
+            <p class="dhabas-count">
+                <% if(dhabas && dhabas.length> 0) { %>
+                    <%= dhabas.length %> Dining Spots Found
+                    <% } else { %>
+                        No dining spots found
+                        <% } %>
+            </p>
+        </div>
+        <div class="filter-tabs">
+            <a href="/dhabas" class="filter-tab <%= !query || query === '' ? 'active' : '' %>">
+                <i class="fas fa-th"></i> All
+            </a>
+            <a href="/dhabas?category=Dhaba" class="filter-tab <%= query === 'Dhaba' ? 'active' : '' %>">
+                <i class="fas fa-store"></i> Dhabas
+            </a>
+            <a href="/dhabas?category=Restaurant" class="filter-tab <%= query === 'Restaurant' ? 'active' : '' %>">
+                <i class="fas fa-utensils"></i> Restaurants
+            </a>
+            <a href="/dhabas?category=Street Food"
+                class="filter-tab <%= query === 'Street Food' ? 'active' : '' %>">
+                <i class="fas fa-hamburger"></i> Street Food
+            </a>
+            <a href="/dhabas?category=Tea Stall" class="filter-tab <%= query === 'Tea Stall' ? 'active' : '' %>">
+                <i class="fas fa-mug-hot"></i> Tea Stalls
+            </a>
+        </div>
+    </div>
+
+    <!-- Dhabas Grid -->
+    <div class="dhabas-grid">
+        <% if(dhabas && dhabas.length> 0) { %>
+            <% dhabas.forEach(dhaba=> { %>
+                <a href="/dhabas/<%= dhaba._id %>" class="dhaba-card">
+                    <div class="dhaba-card__image-wrapper">
+                        <img src="<%= dhaba.image && dhaba.image.url ? dhaba.image.url : 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600' %>"
+                             class="dhaba-card__image" alt="<%= dhaba.title %>">
+                        <div class="dhaba-card__overlay"></div>
+                        
+                        <!-- Wishlist Button -->
+                        <button class="dhaba-card__wishlist" 
+                                onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist('<%= dhaba._id %>', this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        
+                        <span class="dhaba-card__badge">
+                            <%= dhaba.category || 'Dhaba' %>
+                        </span>
+                        
+                        <% if(dhaba.verified) { %>
+                            <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="dhaba-card__content">
+                        <p class="dhaba-card__location">
+                            <%= dhaba.location %>
+                        </p>
+                        <h3 class="dhaba-card__title">
+                            <%= dhaba.title %>
+                        </h3>
+                        
+                        <p class="dhaba-card__details">
+                            Authentic <%= dhaba.category || 'Dhaba' %> experience with traditional flavors
+                        </p>
+                        
+                        <div class="dhaba-card__cuisine">
+                            <% if(dhaba.cuisine && dhaba.cuisine.length> 0) { %>
+                                <% dhaba.cuisine.slice(0,3).forEach(c=> { %>
+                                    <span class="cuisine-tag">
+                                        <%= c %>
+                                    </span>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <span class="cuisine-tag">Multi-Cuisine</span>
+                                            <% } %>
+                        </div>
+                        
+                        <div class="dhaba-card__footer">
+                            <div>
+                                <span class="dhaba-card__price">
+                                    <%= dhaba.priceRange || '₹₹' %>
+                                    <span>Price Range</span>
+                                </span>
+                            </div>
+                            
+                            <span class="dhaba-card__rating">
+                                <i class="fas fa-star"></i> <%= dhaba.rating || '4.5' %>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <% }); %>
+                    <% } else { %>
+                        <div class="empty-state">
+                            <i class="fas fa-utensils"></i>
+                            <h3>No dhabas listed yet</h3>
+                            <p>Know a great local eatery? List it now and help travelers discover hidden gems!</p>
+                            <a href="/dhabas/new" class="hero-btn primary">
+                                <i class="fas fa-plus"></i> List a Dhaba
+                            </a>
+                        </div>
+                        <% } %>
+    </div>
+</div>
+
+<script>
+    // Wishlist Functionality
+    function toggleWishlist(dhabaId, btn) {
+        const icon = btn.querySelector('i');
+
+        if (icon.classList.contains('far')) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            btn.classList.add('active');
+
+            let wishlist = JSON.parse(localStorage.getItem('dhabaWishlist') || '[]');
+            if (!wishlist.includes(dhabaId)) {
+                wishlist.push(dhabaId);
+                localStorage.setItem('dhabaWishlist', JSON.stringify(wishlist));
+            }
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            btn.classList.remove('active');
+
+            let wishlist = JSON.parse(localStorage.getItem('dhabaWishlist') || '[]');
+            wishlist = wishlist.filter(id => id !== dhabaId);
+            localStorage.setItem('dhabaWishlist', JSON.stringify(wishlist));
+        }
+    }
+
+    // Load wishlist on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const wishlist = JSON.parse(localStorage.getItem('dhabaWishlist') || '[]');
+
+        wishlist.forEach(dhabaId => {
+            const card = document.querySelector(`a[href="/dhabas/${dhabaId}"]`);
+            if (card) {
+                const btn = card.querySelector('.dhaba-card__wishlist');
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    btn.classList.add('active');
+                }
+            }
+        });
+
+        // Fade-in animation for cards
+        const dhabaCards = document.querySelectorAll('.dhaba-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        dhabaCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    });
+</script>

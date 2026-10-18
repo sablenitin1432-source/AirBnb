@@ -1,0 +1,299 @@
+<% layout("layouts/boilerplate") %>
+
+    <style>
+        body { background-color: #F8F9FA; color: #333; }
+
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            max-width: 98%;
+            margin: 2rem auto;
+            min-height: 85vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .user-mini-profile {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .sidebar-avatar {
+            width: 80px; height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--luxury-gold), #E8D5A3);
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-serif);
+            font-weight: 600; font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(201, 162, 39, 0.2);
+        }
+
+        .sidebar-name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem; font-weight: 600; color: #222;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-role {
+            font-family: var(--font-sans);
+            font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--luxury-gold); font-weight: 700;
+        }
+
+        .sidebar-nav { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.5rem; text-decoration: none; color: #666;
+            font-family: var(--font-sans); font-weight: 500;
+            border-radius: 12px; transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(201, 162, 39, 0.05);
+            color: var(--luxury-gold); transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--luxury-gold); color: white;
+            box-shadow: 0 4px 15px rgba(201, 162, 39, 0.2);
+        }
+
+        .nav-item i { width: 20px; text-align: center; }
+
+        .admin-section { padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05); }
+        .nav-item.admin-link { border: 1px dashed rgba(201, 162, 39, 0.3); color: var(--luxury-gold); }
+        .nav-item.admin-link:hover { background: var(--luxury-gold); color: white; border-style: solid; }
+
+        /* MAIN CONTENT */
+        .main-content { display: flex; flex-direction: column; gap: 2rem; }
+
+        .content-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 2rem; border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .content-header h1 {
+            font-family: var(--font-serif); font-size: 2rem; margin: 0; color: #222;
+        }
+
+        .content-header p {
+            color: #888; margin: 0.5rem 0 0; font-family: var(--font-sans);
+        }
+
+        .btn-add-premium {
+            padding: 0.75rem 1.75rem; border-radius: 50px; text-decoration: none;
+            font-family: var(--font-sans); font-weight: 600; font-size: 0.85rem;
+            background: #222; color: white; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.3s ease; letter-spacing: 0.03em;
+        }
+
+        .btn-add-premium:hover { background: var(--luxury-gold); transform: translateY(-2px); color: white; }
+
+        /* PREMIUM CARDS GRID */
+        .premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .premium-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+            border-color: rgba(201, 162, 39, 0.2);
+        }
+
+        .premium-card__img {
+            width: 100%; height: 200px; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .premium-card:hover .premium-card__img { transform: scale(1.05); }
+
+        .premium-card__img-wrap {
+            overflow: hidden; position: relative;
+        }
+
+        .premium-card__badge {
+            position: absolute; top: 12px; left: 12px;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            color: white; padding: 0.3rem 0.75rem; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; font-family: var(--font-sans);
+        }
+
+        .premium-card__body { padding: 1.25rem 1.5rem; }
+
+        .premium-card__title {
+            font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600;
+            color: #222; margin-bottom: 0.5rem;
+        }
+
+        .premium-card__meta {
+            display: flex; flex-direction: column; gap: 0.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .premium-card__meta span {
+            font-family: var(--font-sans); font-size: 0.82rem; color: #888;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+
+        .premium-card__meta span i { color: var(--luxury-gold); width: 14px; font-size: 0.75rem; }
+
+        .premium-card__price {
+            font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700;
+            color: #222; margin-bottom: 1rem;
+        }
+
+        .premium-card__price small {
+            font-size: 0.8rem; font-weight: 400; color: #999;
+        }
+
+        .premium-card__actions {
+            display: flex; gap: 0.5rem;
+            border-top: 1px solid rgba(0,0,0,0.06); padding-top: 1rem;
+        }
+
+        .premium-card__actions a, .premium-card__actions button {
+            flex: 1; padding: 0.6rem; text-align: center; border-radius: 8px;
+            text-decoration: none; font-size: 0.78rem; font-weight: 600;
+            border: none; cursor: pointer; transition: all 0.3s ease;
+            font-family: var(--font-sans); letter-spacing: 0.02em;
+        }
+
+        .act-view { background: rgba(201, 162, 39, 0.1); color: var(--luxury-gold); }
+        .act-view:hover { background: var(--luxury-gold); color: white; }
+        .act-edit { background: rgba(25, 118, 210, 0.08); color: #1976D2; }
+        .act-edit:hover { background: #1976D2; color: white; }
+        .act-delete { background: rgba(198, 40, 40, 0.06); color: #C62828; }
+        .act-delete:hover { background: #C62828; color: white; }
+
+        /* EMPTY STATE */
+        .empty-premium {
+            text-align: center; padding: 5rem 2rem;
+            background: white; border-radius: 20px;
+            border: 2px dashed rgba(201, 162, 39, 0.2);
+        }
+
+        .empty-premium i { font-size: 4rem; color: var(--luxury-gold); opacity: 0.3; margin-bottom: 1.5rem; display: block; }
+        .empty-premium h3 { font-family: var(--font-serif); font-size: 1.5rem; color: #333; margin-bottom: 0.5rem; }
+        .empty-premium p { color: #999; font-family: var(--font-sans); margin-bottom: 1.5rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .dashboard-wrapper { grid-template-columns: 80px 1fr; }
+            .sidebar { padding: 1rem; align-items: center; }
+            .sidebar-name, .sidebar-role, .nav-text, .user-mini-profile { display: none; }
+            .nav-item { justify-content: center; padding: 1rem; }
+            .sidebar-avatar { width: 50px; height: 50px; font-size: 1.5rem; margin-bottom: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-wrapper { grid-template-columns: 1fr; margin: 1rem; }
+            .sidebar { display: none; }
+            .content-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .premium-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <div class="dashboard-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="user-mini-profile">
+                <div class="sidebar-avatar"><%= currUser.username.charAt(0).toUpperCase() %></div>
+                <div class="sidebar-name"><%= currUser.username %></div>
+                <div class="sidebar-role"><%= currUser.role %> Account</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i> <span class="nav-text">Overview</span></a>
+                <a href="/dashboard/profile" class="nav-item"><i class="fas fa-user-circle"></i> <span class="nav-text">My Profile</span></a>
+                <a href="/dashboard/listings" class="nav-item"><i class="fas fa-building"></i> <span class="nav-text">My Stays</span></a>
+                <a href="/dashboard/vehicles" class="nav-item active"><i class="fas fa-car"></i> <span class="nav-text">My Vehicles</span></a>
+                <a href="/dashboard/dhabas" class="nav-item"><i class="fas fa-utensils"></i> <span class="nav-text">Dining</span></a>
+                <a href="/dashboard/bookings" class="nav-item"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Bookings</span></a>
+                <% if (currUser.role === 'admin') { %>
+                    <div class="admin-section">
+                        <a href="/admin" class="nav-item admin-link"><i class="fas fa-shield-alt"></i> <span class="nav-text">Admin Panel</span></a>
+                    </div>
+                <% } %>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="content-header">
+                <div>
+                    <h1>My Vehicles</h1>
+                    <p><%= vehicles.length %> vehicle<%= vehicles.length !== 1 ? 's' : '' %> listed</p>
+                </div>
+                <a href="/vehicles/new" class="btn-add-premium"><i class="fas fa-plus"></i> Add Vehicle</a>
+            </div>
+
+            <% if (vehicles.length > 0) { %>
+                <div class="premium-grid">
+                    <% vehicles.forEach(vehicle => { %>
+                        <div class="premium-card">
+                            <div class="premium-card__img-wrap">
+                                <img src="<%= vehicle.image && vehicle.image.url ? vehicle.image.url : 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400' %>"
+                                     alt="<%= vehicle.title %>" class="premium-card__img">
+                                <span class="premium-card__badge"><%= vehicle.vehicleType %></span>
+                            </div>
+                            <div class="premium-card__body">
+                                <h3 class="premium-card__title"><%= vehicle.title %></h3>
+                                <div class="premium-card__meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> <%= vehicle.location %></span>
+                                </div>
+                                <div class="premium-card__price">
+                                    ₹<%= vehicle.pricePerDay.toLocaleString('en-IN') %> <small>/ day</small>
+                                </div>
+                                <div class="premium-card__actions">
+                                    <a href="/vehicles/<%= vehicle._id %>" class="act-view"><i class="fas fa-eye"></i> View</a>
+                                    <a href="/vehicles/<%= vehicle._id %>/edit" class="act-edit"><i class="fas fa-pen"></i> Edit</a>
+                                    <form action="/vehicles/<%= vehicle._id %>?_method=DELETE" method="POST" style="flex:1;margin:0;">
+                                        <button type="submit" class="act-delete" onclick="return confirm('Delete this vehicle?');" style="width:100%;">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="empty-premium">
+                    <i class="fas fa-car"></i>
+                    <h3>No Vehicles Listed</h3>
+                    <p>Start sharing your vehicles with travelers around the world.</p>
+                    <a href="/vehicles/new" class="btn-add-premium"><i class="fas fa-plus"></i> Add Your First Vehicle</a>
+                </div>
+            <% } %>
+        </main>
+    </div>

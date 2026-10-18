@@ -1,14 +1,34 @@
-<% if(success && success.length) { %>
-    <div class="alert alert-success alert-dismissible fade show show col-6 offset-3" role="alert">
-        <%= success %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <% } %>
+<div class="flash-container"
+    style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1100; width: 50%; min-width: 300px;">
+    <% if(success && success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+            style="box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 10px;">
+            <%= success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+        </div>
+        <% } %>
 
-        <% if(error && error.length) { %>
-            <div class="alert alert-danger alert-dismissible fade show show col-6 offset-3" role="alert">
+            <% if(error && error.length) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                    style="box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 10px;">
+                    <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                </div>
+                <% } %>
+</div>
 
-                <%= error %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <% } %>
+<script>
+    // Auto-dismiss flash messages after 4 seconds
+    window.addEventListener('load', function () {
+        setTimeout(function () {
+            var alerts = document.querySelectorAll('.flash-container .alert');
+            alerts.forEach(function (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(function () { alert.remove(); }, 500);
+            });
+        }, 4000);
+    });
+</script>

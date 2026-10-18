@@ -1,0 +1,283 @@
+<% layout("layouts/boilerplate") %>
+
+    <style>
+        body { background-color: #F8F9FA; color: #333; }
+
+        .dashboard-wrapper {
+            display: grid; grid-template-columns: 280px 1fr;
+            gap: 2rem; max-width: 98%; margin: 2rem auto; min-height: 85vh;
+        }
+
+        .sidebar {
+            background: white; border-radius: 20px; padding: 2rem;
+            height: fit-content; position: sticky; top: 100px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+
+        .user-mini-profile { text-align: center; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+        .sidebar-avatar {
+            width: 80px; height: 80px; margin: 0 auto 1rem; border-radius: 50%;
+            background: linear-gradient(135deg, var(--luxury-gold), #E8D5A3);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-serif); font-weight: 600; font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(201, 162, 39, 0.2);
+        }
+
+        .sidebar-name { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: #222; margin-bottom: 0.25rem; }
+        .sidebar-role { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--luxury-gold); font-weight: 700; }
+        .sidebar-nav { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem;
+            text-decoration: none; color: #666; font-family: var(--font-sans);
+            font-weight: 500; border-radius: 12px; transition: all 0.3s ease;
+        }
+        .nav-item:hover { background: rgba(201, 162, 39, 0.05); color: var(--luxury-gold); transform: translateX(5px); }
+        .nav-item.active { background: var(--luxury-gold); color: white; box-shadow: 0 4px 15px rgba(201, 162, 39, 0.2); }
+        .nav-item i { width: 20px; text-align: center; }
+        .admin-section { padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05); }
+        .nav-item.admin-link { border: 1px dashed rgba(201, 162, 39, 0.3); color: var(--luxury-gold); }
+        .nav-item.admin-link:hover { background: var(--luxury-gold); color: white; border-style: solid; }
+
+        .main-content { display: flex; flex-direction: column; gap: 2rem; }
+
+        .content-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; padding: 2rem; border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+        .content-header h1 { font-family: var(--font-serif); font-size: 2rem; margin: 0; color: #222; }
+        .content-header p { color: #888; margin: 0.5rem 0 0; font-family: var(--font-sans); }
+
+        /* BOOKING CARDS */
+        .bookings-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        .booking-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .booking-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            border-color: rgba(201, 162, 39, 0.2);
+        }
+
+        .booking-image { width: 220px; min-height: 160px; object-fit: cover; }
+
+        .booking-content {
+            flex: 1; padding: 1.5rem 2rem;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .booking-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+
+        .booking-title h3 {
+            font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600;
+            color: #222; margin: 0 0 0.5rem;
+        }
+
+        .booking-type-badge {
+            padding: 0.25rem 0.75rem; border-radius: 20px;
+            font-family: var(--font-sans); font-size: 0.7rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+
+        .badge-listing { background: rgba(25, 118, 210, 0.1); color: #1976D2; }
+        .badge-vehicle { background: rgba(0, 121, 107, 0.1); color: #00796B; }
+        .badge-dining { background: rgba(230, 81, 0, 0.1); color: #E65100; }
+
+        .booking-status-pill {
+            padding: 0.3rem 0.9rem; border-radius: 20px;
+            font-family: var(--font-sans); font-size: 0.72rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+
+        .status-confirmed { background: #E8F5E9; color: #2E7D32; }
+        .status-pending { background: #FFF3E0; color: #E65100; }
+        .status-cancelled { background: #FFEBEE; color: #C62828; }
+
+        .booking-details {
+            display: flex; gap: 2.5rem; margin-bottom: 1rem; flex-wrap: wrap;
+        }
+
+        .detail-item { display: flex; flex-direction: column; }
+
+        .detail-label {
+            font-family: var(--font-sans); font-size: 0.65rem;
+            color: var(--luxury-gold); text-transform: uppercase;
+            letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-family: var(--font-serif); font-weight: 600;
+            font-size: 0.95rem; color: #222;
+        }
+
+        .booking-actions { display: flex; gap: 0.5rem; }
+
+        .booking-actions a, .booking-actions button {
+            padding: 0.55rem 1.25rem; border-radius: 8px; text-decoration: none;
+            font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
+            border: none; cursor: pointer; transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .act-view-booking { background: rgba(201, 162, 39, 0.1); color: var(--luxury-gold); }
+        .act-view-booking:hover { background: var(--luxury-gold); color: white; }
+        .act-cancel-booking { background: rgba(198, 40, 40, 0.06); color: #C62828; }
+        .act-cancel-booking:hover { background: #C62828; color: white; }
+
+        .empty-premium {
+            text-align: center; padding: 5rem 2rem; background: white;
+            border-radius: 20px; border: 2px dashed rgba(201, 162, 39, 0.2);
+        }
+        .empty-premium i { font-size: 4rem; color: var(--luxury-gold); opacity: 0.3; margin-bottom: 1.5rem; display: block; }
+        .empty-premium h3 { font-family: var(--font-serif); font-size: 1.5rem; color: #333; margin-bottom: 0.5rem; }
+        .empty-premium p { color: #999; font-family: var(--font-sans); margin-bottom: 1.5rem; }
+
+        .btn-browse {
+            padding: 0.75rem 1.75rem; border-radius: 50px; text-decoration: none;
+            font-family: var(--font-sans); font-weight: 600; font-size: 0.85rem;
+            background: #222; color: white; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-browse:hover { background: var(--luxury-gold); transform: translateY(-2px); color: white; }
+
+        @media (max-width: 1100px) {
+            .dashboard-wrapper { grid-template-columns: 80px 1fr; }
+            .sidebar { padding: 1rem; align-items: center; }
+            .sidebar-name, .sidebar-role, .nav-text, .user-mini-profile { display: none; }
+            .nav-item { justify-content: center; padding: 1rem; }
+            .sidebar-avatar { width: 50px; height: 50px; font-size: 1.5rem; margin-bottom: 0; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-wrapper { grid-template-columns: 1fr; margin: 1rem; }
+            .sidebar { display: none; }
+            .content-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .booking-card { flex-direction: column; }
+            .booking-image { width: 100%; height: 180px; }
+        }
+    </style>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="user-mini-profile">
+                <div class="sidebar-avatar"><%= currUser.username.charAt(0).toUpperCase() %></div>
+                <div class="sidebar-name"><%= currUser.username %></div>
+                <div class="sidebar-role"><%= currUser.role %> Account</div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item"><i class="fas fa-th-large"></i> <span class="nav-text">Overview</span></a>
+                <a href="/dashboard/profile" class="nav-item"><i class="fas fa-user-circle"></i> <span class="nav-text">My Profile</span></a>
+                <a href="/dashboard/listings" class="nav-item"><i class="fas fa-building"></i> <span class="nav-text">My Stays</span></a>
+                <a href="/dashboard/vehicles" class="nav-item"><i class="fas fa-car"></i> <span class="nav-text">My Vehicles</span></a>
+                <a href="/dashboard/dhabas" class="nav-item"><i class="fas fa-utensils"></i> <span class="nav-text">Dining</span></a>
+                <a href="/dashboard/bookings" class="nav-item active"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Bookings</span></a>
+                <% if (currUser.role === 'admin') { %>
+                    <div class="admin-section">
+                        <a href="/admin" class="nav-item admin-link"><i class="fas fa-shield-alt"></i> <span class="nav-text">Admin Panel</span></a>
+                    </div>
+                <% } %>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <div>
+                    <h1>My Bookings</h1>
+                    <p><%= bookings.length %> booking<%= bookings.length !== 1 ? 's' : '' %> total</p>
+                </div>
+            </div>
+
+            <% if (bookings.length > 0) { %>
+                <div class="bookings-list">
+                    <% bookings.forEach(booking => {
+                        let imgUrl = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400';
+                        let title = 'Booking';
+                        let type = 'listing';
+                        let viewUrl = '#';
+                        if (booking.listing) {
+                            imgUrl = booking.listing.image && booking.listing.image.url ? booking.listing.image.url : imgUrl;
+                            title = booking.listing.title; type = 'listing'; viewUrl = '/listings/' + booking.listing._id;
+                        } else if (booking.vehicle) {
+                            imgUrl = booking.vehicle.image && booking.vehicle.image.url ? booking.vehicle.image.url : imgUrl;
+                            title = booking.vehicle.title; type = 'vehicle'; viewUrl = '/vehicles/' + booking.vehicle._id;
+                        } else if (booking.dhaba) {
+                            imgUrl = booking.dhaba.image && booking.dhaba.image.url ? booking.dhaba.image.url : imgUrl;
+                            title = booking.dhaba.title; type = 'dining'; viewUrl = '/dhabas/' + booking.dhaba._id;
+                        }
+                    %>
+                        <div class="booking-card">
+                            <img src="<%= imgUrl %>" alt="<%= title %>" class="booking-image">
+                            <div class="booking-content">
+                                <div class="booking-header">
+                                    <div class="booking-title">
+                                        <h3><%= title %></h3>
+                                        <span class="booking-type-badge badge-<%= type %>">
+                                            <% if (type === 'listing') { %>
+                                                <i class="fas fa-building"></i>
+                                            <% } else if (type === 'vehicle') { %>
+                                                <i class="fas fa-car"></i>
+                                            <% } else { %>
+                                                <i class="fas fa-utensils"></i>
+                                            <% } %>
+                                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                                        </span>
+                                    </div>
+                                    <span class="booking-status-pill status-<%= booking.status || 'pending' %>">
+                                        <%= booking.status ? booking.status.charAt(0).toUpperCase() + booking.status.slice(1) : 'Pending' %>
+                                    </span>
+                                </div>
+
+                                <div class="booking-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Check-in</span>
+                                        <span class="detail-value">
+                                            <%= booking.checkIn ? new Date(booking.checkIn).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'N/A' %>
+                                        </span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Check-out</span>
+                                        <span class="detail-value">
+                                            <%= booking.checkOut ? new Date(booking.checkOut).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'N/A' %>
+                                        </span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Guests</span>
+                                        <span class="detail-value"><%= booking.guests || 1 %></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Total</span>
+                                        <span class="detail-value">₹<%= booking.totalAmount ? booking.totalAmount.toLocaleString('en-IN') : '0' %></span>
+                                    </div>
+                                </div>
+
+                                <div class="booking-actions">
+                                    <a href="<%= viewUrl %>" class="act-view-booking"><i class="fas fa-eye"></i> View Details</a>
+                                    <% if (booking.status !== 'cancelled') { %>
+                                        <form action="/dashboard/bookings/<%= booking._id %>/cancel?_method=PUT" method="POST" style="margin:0;">
+                                            <button type="submit" class="act-cancel-booking" onclick="return confirm('Are you sure you want to cancel this booking?');">
+                                                <i class="fas fa-times"></i> Cancel
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="empty-premium">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>No Bookings Yet</h3>
+                    <p>Your journey awaits — explore our curated stays, vehicles, and dining experiences.</p>
+                    <a href="/listings" class="btn-browse"><i class="fas fa-compass"></i> Explore Now</a>
+                </div>
+            <% } %>
+        </main>
+    </div>

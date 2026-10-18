@@ -1,65 +1,528 @@
 <style>
-    .search-btn {
-        background-color: #fe424d;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0 1rem 0 1rem;
+  /* ===================================
+     LUXURY NAVBAR - FOUR SEASONS STYLE
+     =================================== */
+
+  :root {
+    --nav-gold: #C9A227;
+    --nav-gold-light: #E8D5A3;
+    --nav-dark: #1A1A1A;
+  }
+
+  /* Push body content below the fixed navbar */
+  body {
+    padding-top: 70px;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(26, 26, 26, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
+    padding: 0.5rem 3rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .navbar .container-fluid {
+    gap: 1.5rem;
+  }
+
+  /* When page has a hero section, navbar starts transparent and absolute */
+  .navbar.navbar-hero {
+    position: absolute;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    padding: 1.5rem 3rem;
+  }
+
+  /* Solid navbar when scrolling (for hero pages after scroll) */
+  .navbar.navbar-solid {
+    position: fixed;
+    background: rgba(26, 26, 26, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 3rem;
+  }
+
+  /* Transparent navbar over hero */
+  .navbar.navbar-transparent {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Brand Styling - Elegant & Refined */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .navbar-brand:hover {
+    opacity: 0.9;
+  }
+
+  .navbar-brand .brand-svg {
+    height: 55px;
+    width: auto;
+  }
+
+  /* Navigation Links - Refined Style */
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.25rem !important;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--nav-gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover {
+    color: #1a1a1a !important;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+  }
+
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  /* Search Container - Minimal Elegant */
+  .navbar-search-center {
+    margin-left: 1.5rem;
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    min-width: 220px;
+    max-width: 320px;
+    flex-shrink: 1;
+  }
+
+  .search-container:hover,
+  .search-container:focus-within {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .search-container input {
+    border: none;
+    outline: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    flex: 1;
+    color: #FFFFFF;
+    font-weight: 400;
+    background: transparent;
+    min-width: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  .search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .search-btn {
+    background: var(--nav-gold);
+    color: white;
+    border: none;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .search-btn:hover {
+    background: #D4AF37;
+    transform: scale(1.05);
+  }
+
+  .search-btn i {
+    font-size: 0.75rem;
+  }
+
+  /* User Menu - Elegant */
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem 0.35rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .user-menu:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .user-menu i.fa-bars {
+    font-size: 0.8rem;
+    color: #FFFFFF;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    background: var(--nav-gold);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  /* Premium Dropdown Menu */
+  .dropdown-menu {
+    border-radius: 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: none;
+    padding: 0.75rem 0;
+    margin-top: 0.75rem;
+    background: #FFFFFF;
+    max-height: 70vh;
+    overflow-y: auto;
+    animation: dropdownFadeIn 0.25s ease;
+    min-width: 220px;
+  }
+
+  @keyframes dropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
     }
 
-    .search-btn:hover {
-        background-color: #fe424d;
-        color: #fff;
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .dropdown-item {
+    padding: 0.875rem 1.5rem;
+    transition: all 0.2s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--nav-dark);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .dropdown-item:hover {
+    background: #f8f8f8;
+    color: var(--nav-gold);
+  }
+
+  .dropdown-item i {
+    width: 20px;
+    color: #999;
+    transition: color 0.2s ease;
+  }
+
+  .dropdown-item:hover i {
+    color: var(--nav-gold);
+  }
+
+  .dropdown-divider {
+    margin: 0.5rem 1rem;
+    border-color: #eee;
+  }
+
+  /* Mobile Toggle */
+  .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .search-container {
+      min-width: 180px;
+      max-width: 240px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .search-container {
+      display: none;
     }
 
-    .search-btn i {
-        display: inline;
-        margin-right: 0.5rem;
+    .navbar {
+      padding: 1rem 1.5rem;
     }
 
-    .search-inp {
-        border-radius: 25px;
-        padding: 0.5rem 3rem 0.5rem 3rem;
-        font-size: 1rem;
+    .navbar.navbar-solid {
+      padding: 0.875rem 1.5rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0.875rem 1rem;
+    }
+
+    .nav-menu {
+      gap: 0.125rem;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.7rem;
+    }
+
+    .navbar-brand .brand-svg {
+      height: 38px;
+    }
+  }
+
+  /* Mobile collapse layout */
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      background: rgba(26, 26, 26, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1rem;
+      margin-top: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-menu {
+      flex-direction: column;
+      width: 100%;
+      gap: 4px;
+    }
+
+    .nav-link {
+      padding: 0.75rem 1rem !important;
+      width: 100%;
+      display: block;
+      border-radius: 8px !important;
+    }
+
+    .ms-auto {
+      width: 100%;
+    }
+
+    .dropdown {
+      width: 100%;
+    }
+
+    .user-menu {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    .dropdown-menu {
+      width: 100%;
+      margin-top: 4px !important;
+      border-radius: 8px;
+    }
+  }
 </style>
 
+<nav class="navbar navbar-expand-lg">
+  <!-- Navbar hero detection script -->
+  <script>
+    (function () {
+      // Wait for DOM to be ready
+      document.addEventListener('DOMContentLoaded', function () {
+        const navbar = document.querySelector('.navbar');
+        const heroSection = document.querySelector('.hero, .stays-hero, .vehicles-hero, .dhabas-hero, .homepage-hero, [class*="-hero"]');
 
-<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top site-navbar" aria-label="Primary navigation">
-    <div class="container-fluid">
-        <a class="navbar-brand site-brand" href="/">
-            <i class="fa-regular fa-compass"></i>
-            <span>Wanderlust</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        if (heroSection && navbar) {
+          // Hero page: remove body padding so hero extends behind navbar
+          document.body.style.paddingTop = '0';
+          // Hero page: make navbar transparent and absolute
+          navbar.classList.add('navbar-hero');
+
+          // Handle scroll: switch to solid when scrolled past hero
+          window.addEventListener('scroll', function () {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            if (window.scrollY > 100) {
+              navbar.classList.remove('navbar-hero');
+              navbar.classList.add('navbar-solid');
+            } else {
+              navbar.classList.add('navbar-hero');
+              navbar.classList.remove('navbar-solid');
+            }
+          });
+        }
+      });
+    })();
+  </script>
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <svg class="brand-svg" viewBox="0 0 750 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldLuxuryNav" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C6A75E" />
+            <stop offset="50%" stop-color="#F0D78C" />
+            <stop offset="100%" stop-color="#B8892D" />
+          </linearGradient>
+        </defs>
+        <line x1="200" y1="80" x2="550" y2="80" stroke="url(#goldLuxuryNav)" stroke-width="1.2" />
+        <text x="50%" y="135" text-anchor="middle" font-family="Cinzel, Playfair Display, serif" font-size="64"
+          letter-spacing="10" fill="url(#goldLuxuryNav)">ELITE</text>
+        <text x="50%" y="180" text-anchor="middle" font-family="Cinzel, Playfair Display, serif" font-size="24"
+          letter-spacing="16" fill="#C6A75E">PASSAGE</text>
+        <line x1="260" y1="205" x2="490" y2="205" stroke="url(#goldLuxuryNav)" stroke-width="1" />
+      </svg>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Search beside brand -->
+    <div class="navbar-search-center d-none d-lg-flex">
+      <form class="search-container" action="/listings/search" method="GET">
+        <input type="text" name="location" placeholder="Search destinations..." />
+        <button class="search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav site-nav-primary">
-                <a class="nav-link" href="/listings">Explore</a>
-            </div>
-            <div class="navbar-nav ms-auto site-search-nav">
-                <form class="d-flex site-search-form" role="search" method="GET" action="/listings">
-                    <input class="form-control me-2 search-inp" type="search" name="q"
-                        placeholder="Search destinations"
-                        aria-label="Search stays by destination"
-                        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" />
-                    <button class="btn search-btn" type="submit">
-                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                        <span>Search</span>
-                    </button>
-                </form>
-            </div>
-            <div class="navbar-nav ms-auto site-nav-actions">
-                <a class="nav-link nav-link-property" href="/listings/new">List your property</a>
-                <% if(!currUser) { %>
-                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
-                    <a class="nav-link" href="/login"><b>Log in</b></a>
-                    <% } %>
-                        <% if(currUser) { %>
-                            <a class="nav-link" href="/logout"><b>Log out</b></a>
-                            <% } %>
-            </div>
-        </div>
+      </form>
     </div>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+      <!-- Right Menu -->
+      <div class="ms-auto">
+        <div class="nav-menu">
+          <a class="nav-link" href="/">Main</a>
+          <a class="nav-link" href="/listings">Stays</a>
+          <a class="nav-link" href="/vehicles">Vehicles</a>
+          <a class="nav-link" href="/dhabas">Dining</a>
+
+          <% if (typeof currUser==='undefined' || !currUser) { %>
+            <!-- Guest Menu -->
+            <div class="dropdown">
+              <div class="user-menu" data-bs-toggle="dropdown">
+                <i class="fas fa-bars"></i>
+                <div class="user-avatar">
+                  <i class="fas fa-user"></i>
+                </div>
+              </div>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="/signup"><b>Sign up</b></a></li>
+                <li><a class="dropdown-item" href="/login">Log in</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/listings/new">List Your Property</a></li>
+                <li><a class="dropdown-item" href="#">Help Center</a></li>
+              </ul>
+            </div>
+            <% } else { %>
+              <!-- Logged In User Menu -->
+              <div class="dropdown">
+                <div class="user-menu" data-bs-toggle="dropdown">
+                  <i class="fas fa-bars"></i>
+                  <div class="user-avatar">
+                    <%= currUser.username.charAt(0).toUpperCase() %>
+                  </div>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><b>Welcome, <%= currUser.username %>!</b></a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                  </li>
+                  <li><a class="dropdown-item" href="/dashboard/profile"><i class="fas fa-user me-2"></i>Profile</a>
+                  </li>
+                  <li><a class="dropdown-item" href="/dashboard/bookings"><i class="fas fa-calendar-check me-2"></i>My
+                      Bookings</a></li>
+                  <li><a class="dropdown-item" href="/dashboard/listings"><i class="fas fa-building me-2"></i>My
+                      Listings</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="/listings/new"><i class="fas fa-plus me-2"></i>Add Stays</a></li>
+                  <li><a class="dropdown-item" href="/vehicles/new"><i class="fas fa-car me-2"></i>Add Vehicle</a></li>
+                  <li><a class="dropdown-item" href="/dhabas/new"><i class="fas fa-utensils me-2"></i>Add Dining</a>
+                  </li>
+                  <% if (currUser.role==='admin' ) { %>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/admin" style="color: #C9A227;"><i
+                          class="fas fa-shield-alt me-2"></i><b>Admin Panel</b></a></li>
+                    <% } %>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Log out</a>
+                      </li>
+                </ul>
+              </div>
+              <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

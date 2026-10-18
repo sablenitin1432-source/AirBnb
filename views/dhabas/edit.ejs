@@ -1,0 +1,204 @@
+<% layout("layouts/boilerplate")%>
+
+    <style>
+        .form-page {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-page h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF385C;
+            box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FF385C, #E31C5F);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 56, 92, 0.3);
+        }
+
+        .current-image {
+            margin-bottom: 1rem;
+        }
+
+        .current-image img {
+            max-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-image p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="form-page">
+        <h1>🍛 Edit Dhaba</h1>
+
+        <form action="/dhabas/<%= dhaba._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Dhaba/Restaurant Name *</label>
+                <input type="text" name="dhaba[title]" id="title" value="<%= dhaba.title %>" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select name="dhaba[category]" id="category" required>
+                        <option value="Dhaba" <%=dhaba.category==='Dhaba' ? 'selected' : '' %>>Dhaba</option>
+                        <option value="Restaurant" <%=dhaba.category==='Restaurant' ? 'selected' : '' %>>Restaurant
+                        </option>
+                        <option value="Street Food" <%=dhaba.category==='Street Food' ? 'selected' : '' %>>Street Food
+                        </option>
+                        <option value="Tea Stall" <%=dhaba.category==='Tea Stall' ? 'selected' : '' %>>Tea Stall
+                        </option>
+                        <option value="Sweet Shop" <%=dhaba.category==='Sweet Shop' ? 'selected' : '' %>>Sweet Shop
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priceRange">Price Range *</label>
+                    <select name="dhaba[priceRange]" id="priceRange" required>
+                        <option value="₹" <%=dhaba.priceRange==='₹' ? 'selected' : '' %>>₹ (Budget)</option>
+                        <option value="₹₹" <%=dhaba.priceRange==='₹₹' ? 'selected' : '' %>>₹₹ (Moderate)</option>
+                        <option value="₹₹₹" <%=dhaba.priceRange==='₹₹₹' ? 'selected' : '' %>>₹₹₹ (Premium)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location *</label>
+                <input type="text" name="dhaba[location]" id="location" value="<%= dhaba.location %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="dhaba[description]" id="description" rows="4"><%= dhaba.description || '' %></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="open">Opening Time</label>
+                    <input type="text" name="dhaba[timings][open]" id="open"
+                        value="<%= dhaba.timings && dhaba.timings.open ? dhaba.timings.open : '6:00 AM' %>">
+                </div>
+                <div class="form-group">
+                    <label for="close">Closing Time</label>
+                    <input type="text" name="dhaba[timings][close]" id="close"
+                        value="<%= dhaba.timings && dhaba.timings.close ? dhaba.timings.close : '11:00 PM' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="text" name="dhaba[contact]" id="contact" value="<%= dhaba.contact || '' %>">
+            </div>
+
+            <% if ((dhaba.images && dhaba.images.length > 0) || (dhaba.image && dhaba.image.url)) { %>
+                <div class="form-group current-image">
+                    <label>Current Images</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <% if (dhaba.images && dhaba.images.length > 0) { %>
+                            <% dhaba.images.forEach((img, i) => { %>
+                                <img src="<%= img.url %>" alt="Dining image <%= i+1 %>"
+                                     style="width: 100px; height: 80px; object-fit: cover; border-radius: 8px;">
+                            <% }); %>
+                        <% } else if (dhaba.image && dhaba.image.url) { %>
+                            <img src="<%= dhaba.image.url %>" alt="Dining image"
+                                 style="width: 100px; height: 80px; object-fit: cover; border-radius: 8px;">
+                        <% } %>
+                    </div>
+                    <p>Upload new images below to replace them</p>
+                </div>
+            <% } %>
+
+            <div class="form-group">
+                <label>📸 Upload New Photos (up to 5)</label>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 1 (Main Photo)</label>
+                    <input type="file" name="dhaba[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 2</label>
+                    <input type="file" name="dhaba[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 3</label>
+                    <input type="file" name="dhaba[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 4</label>
+                    <input type="file" name="dhaba[image]" accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label text-muted small">Photo 5</label>
+                    <input type="file" name="dhaba[image]" accept="image/*">
+                </div>
+                <small class="text-muted">Leave empty to keep existing photos.</small>
+            </div>
+
+                    <button type="submit" class="submit-btn">Update Dhaba</button>
+        </form>
+    </div>

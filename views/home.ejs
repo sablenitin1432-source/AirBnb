@@ -1,0 +1,2112 @@
+<% layout("layouts/boilerplate")%>
+
+    <style>
+        /* ===================================
+       FOUR SEASONS LUXURY DESIGN SYSTEM
+       =================================== */
+
+        :root {
+            --luxury-gold: #C9A227;
+            --luxury-gold-light: #E8D5A3;
+            --luxury-dark: #1A1A1A;
+            --luxury-charcoal: #2D2D2D;
+            --luxury-cream: #F8F6F0;
+            --luxury-ivory: #FFFEF9;
+            --luxury-text: #333333;
+            --luxury-text-light: #666666;
+            --luxury-accent: #8B7355;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-elegant: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Override body for luxury feel */
+        body {
+            background: var(--luxury-ivory);
+            color: var(--luxury-text);
+        }
+
+        /* ===================================
+       LUXURY HERO SECTION
+       =================================== */
+
+        .luxury-hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            margin-left: calc(-50vw + 50%);
+            margin-top: -1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--luxury-dark);
+        }
+
+        .luxury-hero__video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.7) contrast(1.05);
+        }
+
+        .luxury-hero__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.3) 0%,
+                    rgba(0, 0, 0, 0.1) 40%,
+                    rgba(0, 0, 0, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .luxury-hero__content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 1000px;
+            padding: 0 2rem;
+            animation: luxuryFadeIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes luxuryFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .luxury-hero__eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--luxury-gold-light);
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .luxury-hero__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+
+        .luxury-hero__subtitle {
+            font-family: var(--font-elegant);
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 0.05em;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Luxury CTA Button */
+        .luxury-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 1rem 2.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .luxury-hero__content a.luxury-cta {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 1rem 2.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .luxury-hero__content a.luxury-cta:hover {
+            background: white;
+            color: var(--luxury-dark) !important;
+            border-color: white;
+        }
+
+        .luxury-cta i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .luxury-cta:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ===================================
+       FOUR SEASONS BOOKING BAR - EXACT
+       =================================== */
+
+        .booking-bar-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* When hidden, slide completely off screen, show only SHOW button */
+        .booking-bar-wrapper.hidden {
+            transform: translateY(100%);
+        }
+
+        .booking-bar-wrapper.hidden .booking-bar__hide {
+            transform: translateY(-100%);
+            top: -45px;
+        }
+
+        .booking-bar {
+            background: white;
+            display: flex;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-bar__field {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.25rem 1.75rem;
+            border-right: 1px solid #e5e5e5;
+            min-width: 200px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            position: relative;
+        }
+
+        .booking-bar__field:hover {
+            background: #fafafa;
+        }
+
+        .booking-bar__field.checkin,
+        .booking-bar__field.checkout {
+            min-width: 160px;
+        }
+
+        .booking-bar__field.guests {
+            min-width: 220px;
+        }
+
+        .booking-bar__field.promo {
+            min-width: 180px;
+            border-right: none;
+        }
+
+        /* Native date input styling */
+        .booking-bar__input[type="date"] {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+            border: none;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .booking-bar__input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .booking-bar__input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        /* Number input styling */
+        .booking-bar__input[type="number"] {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            padding: 0;
+            cursor: text;
+            position: relative;
+            z-index: 5;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        .booking-bar__input[type="number"]::-webkit-outer-spin-button,
+        .booking-bar__input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+
+        .booking-bar__input[type="number"]:focus {
+            color: #333;
+        }
+
+        /* Text input styling */
+        .booking-bar__input[type="text"] {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            padding: 0;
+            cursor: text;
+            position: relative;
+            z-index: 5;
+        }
+
+        .booking-bar__input[type="text"]:focus {
+            color: #333;
+        }
+
+        .booking-bar__label {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-bar__value {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .booking-bar__value .clear-btn {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .booking-bar__value .clear-btn:hover {
+            color: #333;
+        }
+
+        .booking-bar__value .dropdown-icon {
+            margin-left: auto;
+            font-size: 0.7rem;
+            color: #999;
+            transition: transform 0.3s;
+        }
+
+        .booking-bar__input {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #666;
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .booking-bar__input::placeholder {
+            color: #999;
+        }
+
+        /* Check Rates Button */
+        .booking-bar__submit {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 1.25rem 2.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .booking-bar__submit:hover {
+            background: #333;
+        }
+
+        /* HIDE Button - Above Booking Bar */
+        .booking-bar__hide {
+            position: absolute;
+            top: -40px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            padding: 0.6rem 1.25rem;
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 200;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-bar__hide:hover {
+            background: #fff;
+            color: #1a1a1a;
+        }
+
+        /* When bar is hidden, show SHOW button floating at bottom right */
+        .booking-bar-wrapper.hidden .booking-bar__hide {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            top: auto;
+            background: #1a1a1a;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            padding: 1rem 2rem;
+        }
+
+        .booking-bar-wrapper.hidden .booking-bar__hide:hover {
+            background: #333;
+            color: white;
+        }
+
+        /* ===================================
+       CALENDAR POPUP - FOUR SEASONS STYLE
+       =================================== */
+
+        .calendar-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            display: none;
+            z-index: 1000;
+            min-width: 580px;
+        }
+
+        .calendar-popup.show {
+            display: block;
+            animation: calendarSlideIn 0.3s ease;
+        }
+
+        @keyframes calendarSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: #1a1a1a;
+            transition: color 0.2s;
+        }
+
+        .calendar-nav:hover {
+            color: #666;
+        }
+
+        .calendar-months-wrapper {
+            display: flex;
+            gap: 3rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .calendar-month {
+            flex: 1;
+            max-width: 240px;
+        }
+
+        .calendar-month__title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            color: #1a1a1a;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            text-align: center;
+        }
+
+        .calendar-day-name {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #999;
+            padding: 0.5rem 0;
+        }
+
+        .calendar-day {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            padding: 0.6rem 0.4rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-day:hover:not(.disabled):not(.selected) {
+            background: #f5f5f5;
+        }
+
+        .calendar-day.selected {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .calendar-day.in-range {
+            background: #f0f0f0;
+            border-radius: 0;
+        }
+
+        .calendar-day.range-start {
+            border-radius: 50% 0 0 50%;
+        }
+
+        .calendar-day.range-end {
+            border-radius: 0 50% 50% 0;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        .calendar-day.today {
+            font-weight: 600;
+        }
+
+        .calendar-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #eee;
+        }
+
+        .calendar-footer__left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .calendar-legend__item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .calendar-legend__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+        }
+
+        .calendar-legend__dot.limited {
+            background: transparent;
+        }
+
+        .calendar-legend__line {
+            width: 16px;
+            height: 1px;
+            background: #999;
+        }
+
+        .calendar-footer__info {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.25rem;
+        }
+
+        .calendar-footer__dates {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #1a1a1a;
+        }
+
+        .calendar-done-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .calendar-done-btn:hover {
+            background: #333;
+        }
+
+        /* ===================================
+       GUESTS DROPDOWN - FOUR SEASONS STYLE
+       =================================== */
+
+        .guests-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            display: none;
+            z-index: 1000;
+            min-width: 280px;
+        }
+
+        .guests-dropdown.show {
+            display: block;
+            animation: calendarSlideIn 0.3s ease;
+        }
+
+        .guests-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .guests-row:last-child {
+            border-bottom: none;
+        }
+
+        .guests-row__label {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: #1a1a1a;
+        }
+
+        .guests-row__controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .guests-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #666;
+        }
+
+        .guests-btn:hover {
+            border-color: #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        .guests-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .guests-count {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            min-width: 30px;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        /* ===================================
+       RESPONSIVE BOOKING BAR
+       =================================== */
+
+        @media (max-width: 1200px) {
+            .booking-bar__field {
+                padding: 1rem 1.25rem;
+                min-width: 160px;
+            }
+
+            .booking-bar__field.dates {
+                min-width: 220px;
+            }
+
+            .booking-bar__field.guests {
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .booking-bar {
+                flex-wrap: wrap;
+            }
+
+            .booking-bar__field {
+                flex: 1 1 45%;
+            }
+
+            .booking-bar__submit {
+                flex: 1 1 100%;
+            }
+
+            .calendar-popup {
+                min-width: 100%;
+                left: 0;
+                right: 0;
+            }
+
+            .calendar-months-wrapper {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .calendar-month {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .booking-bar {
+                flex-direction: column;
+            }
+
+            .booking-bar__field {
+                flex: 1 1 100%;
+                border-right: none;
+                border-bottom: 1px solid #e5e5e5;
+            }
+
+            .booking-bar__submit {
+                padding: 1.5rem;
+            }
+
+            .booking-bar__hide {
+                position: absolute;
+                top: -40px;
+                right: 10px;
+                transform: none;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 0.5rem 1rem;
+            }
+
+            .booking-bar-wrapper.hidden .booking-bar__hide {
+                position: fixed;
+                bottom: 15px;
+                right: 15px;
+                top: auto;
+            }
+        }
+
+        /* ===================================
+       ELEGANT SECTION HEADERS
+       =================================== */
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .section-divider:first-child {
+            margin-top: 0;
+        }
+
+        .section-divider__line {
+            width: 60px;
+            height: 1px;
+            background: var(--luxury-gold);
+        }
+
+        .section-divider__icon {
+            color: var(--luxury-gold);
+            font-size: 1.25rem;
+        }
+
+        .luxury-section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .luxury-section-header__eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--luxury-gold);
+            margin-bottom: 1rem;
+        }
+
+        .luxury-section-header__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--luxury-dark);
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .luxury-section-header__subtitle {
+            font-family: var(--font-elegant);
+            font-size: 1.15rem;
+            color: var(--luxury-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===================================
+       EXPERIENCES GRID (Why Choose)
+       =================================== */
+
+        .experiences-section {
+            padding: 3rem 2rem;
+            background: var(--luxury-cream);
+        }
+
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .experience-card {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--luxury-gold);
+            transform: scaleX(0);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .experience-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .experience-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+        }
+
+        .experience-card__icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--luxury-gold);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .experience-card:hover .experience-card__icon {
+            background: var(--luxury-gold);
+        }
+
+        .experience-card__icon i {
+            font-size: 1.5rem;
+            color: var(--luxury-gold);
+            transition: color 0.4s ease;
+        }
+
+        .experience-card:hover .experience-card__icon i {
+            color: white;
+        }
+
+        .experience-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--luxury-dark);
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .experience-card__description {
+            font-family: var(--font-elegant);
+            font-size: 1rem;
+            color: var(--luxury-text-light);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 992px) {
+            .experiences-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        /* ===================================
+       FEATURED ACCOMMODATIONS
+       =================================== */
+
+        .accommodations-section {
+            padding: 3rem 2rem;
+            background: white;
+        }
+
+        .accommodations-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .accommodations-header__left {
+            max-width: 600px;
+        }
+
+        .view-all-link {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--luxury-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--luxury-dark);
+            transition: all 0.3s ease;
+        }
+
+        .view-all-link:hover {
+            background: var(--luxury-dark);
+            color: white;
+        }
+
+        .view-all-link i {
+            font-size: 0.65rem;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Horizontal Scroll Container */
+        .accommodations-scroll {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 0 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .accommodations-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Luxury Card Design */
+        .luxury-card {
+            flex: 0 0 340px;
+            min-width: 340px;
+            scroll-snap-align: start;
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .luxury-card__image {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: var(--luxury-cream);
+        }
+
+        .luxury-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .luxury-card:hover .luxury-card__image img {
+            transform: scale(1.08);
+        }
+
+        .luxury-card__overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.15) 30%,
+                    transparent 60%);
+            pointer-events: none;
+        }
+
+        .luxury-card__badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            left: auto;
+            width: auto;
+            display: inline-block;
+            background: var(--luxury-gold);
+            color: white;
+            font-family: var(--font-sans);
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.75rem;
+            z-index: 10;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .luxury-card__content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .luxury-card__location {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .luxury-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .luxury-card__details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .luxury-card:hover .luxury-card__details {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .luxury-card__price {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .luxury-card__price small {
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .luxury-card__rating {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+        }
+
+        .luxury-card__rating i {
+            color: var(--luxury-gold-light);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .accommodations-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .luxury-card {
+                flex: 0 0 280px;
+                min-width: 280px;
+            }
+        }
+
+        /* ===================================
+       SIGNATURE EXPERIENCES SECTION
+       =================================== */
+
+        .signature-section {
+            padding: 3rem 2rem;
+            background: var(--luxury-dark);
+            color: white;
+        }
+
+        .signature-section .luxury-section-header__eyebrow {
+            color: var(--luxury-gold-light);
+        }
+
+        .signature-section .luxury-section-header__title {
+            color: white;
+        }
+
+        .signature-section .luxury-section-header__subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .signature-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .signature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .signature-card__image {
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .signature-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .signature-card:hover .signature-card__image img {
+            transform: scale(1.1);
+        }
+
+        .signature-card__content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signature-card__category {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--luxury-gold-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .signature-card__title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: white;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .signature-card__description {
+            font-family: var(--font-elegant);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .signature-card__link {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--luxury-gold-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .signature-card__link:hover {
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signature-card {
+                grid-template-columns: 1fr 1.5fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .signature-card {
+                grid-template-columns: 1fr;
+            }
+
+            .signature-card__image {
+                aspect-ratio: 16/9;
+            }
+        }
+
+        /* ===================================
+       CULINARY SECTION (Dhabas)
+       =================================== */
+
+        .culinary-section {
+            padding: 3rem 2rem;
+            background: var(--luxury-cream);
+        }
+
+        /* ===================================
+       LUXURY CTA SECTION
+       =================================== */
+
+        .luxury-cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg,
+                    var(--luxury-dark) 0%,
+                    #2a2a2a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luxury-cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(201,162,39,0.05)" stroke-width="0.5"/></svg>');
+            background-size: 200px 200px;
+            opacity: 0.5;
+        }
+
+        .luxury-cta-section__content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .luxury-cta-section__eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--luxury-gold-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .luxury-cta-section__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .luxury-cta-section__subtitle {
+            font-family: var(--font-elegant);
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .luxury-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .luxury-btn {
+            padding: 1rem 2.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .luxury-btn--primary {
+            background: var(--luxury-gold);
+            color: white;
+            border: 1px solid var(--luxury-gold);
+        }
+
+        .luxury-btn--primary:hover {
+            background: transparent;
+            color: var(--luxury-gold);
+        }
+
+        .luxury-btn--secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .luxury-btn--secondary:hover {
+            background: white;
+            color: #1a1a2e !important;
+            border-color: white;
+        }
+
+        /* ===================================
+       RESPONSIVE ADJUSTMENTS
+       =================================== */
+
+        @media (max-width: 768px) {
+            .luxury-hero__content {
+                padding: 0 1.5rem;
+            }
+
+            .experiences-section,
+            .accommodations-section,
+            .signature-section,
+            .culinary-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .luxury-cta-section {
+                padding: 5rem 1.5rem;
+            }
+        }
+
+        /* Hide default scroll indicator */
+        .luxury-hero::after,
+        .luxury-hero::before {
+            display: none;
+        }
+
+        /* ===================================
+       TEAM SECTION - LUXURY STYLE
+       =================================== */
+
+        .team-section {
+            padding: 3rem 2rem;
+            background: var(--luxury-cream);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: teamFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .team-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .team-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .team-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .team-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes teamFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--luxury-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .team-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+        }
+
+        .team-card__avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #e8e8e8;
+            transition: border-color 0.3s ease;
+            animation: avatarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+        }
+
+        .team-card:hover .team-card__avatar {
+            border-color: var(--luxury-gold);
+        }
+
+        .team-card__avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes avatarPop {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .team-card__avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--luxury-gold), var(--luxury-gold-light)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover .team-card__avatar::after {
+            opacity: 1;
+            animation: spinRing 3s linear infinite;
+        }
+
+        @keyframes spinRing {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .team-card__name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--luxury-dark);
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .team-card__role {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card__social {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .team-card__social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--luxury-text-light);
+            background: var(--luxury-cream);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .team-card__social a:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(201, 162, 39, 0.3);
+        }
+
+        .team-card__social a:nth-child(1):hover {
+            background: #333;
+            color: white;
+        }
+
+        .team-card__social a:nth-child(2):hover {
+            background: #0077B5;
+            color: white;
+        }
+
+
+
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
+        }
+    </style>
+
+    <!-- Luxury Hero Section -->
+    <section class="luxury-hero">
+        <video class="luxury-hero__video" autoplay loop muted playsinline>
+            <source src="/mainpagebg.webm" type="video/webm">
+            <source src="/mainBackground.mp4" type="video/mp4">
+        </video>
+        <div class="luxury-hero__overlay"></div>
+
+        <div class="luxury-hero__content">
+            <svg class="brand-svg" viewBox="0 0 750 260" xmlns="http://www.w3.org/2000/svg"
+                style="height: 120px; width: auto; margin-bottom: 1.5rem;">
+                <defs>
+                    <linearGradient id="goldLuxuryNav" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#C6A75E" />
+                        <stop offset="50%" stop-color="#F0D78C" />
+                        <stop offset="100%" stop-color="#B8892D" />
+                    </linearGradient>
+                </defs>
+                <line x1="200" y1="80" x2="550" y2="80" stroke="url(#goldLuxuryNav)" stroke-width="1.2" />
+                <text x="50%" y="135" text-anchor="middle" font-family="Cinzel, Playfair Display, serif" font-size="64"
+                    letter-spacing="10" fill="url(#goldLuxuryNav)">ELITE</text>
+                <text x="50%" y="180" text-anchor="middle" font-family="Cinzel, Playfair Display, serif" font-size="24"
+                    letter-spacing="16" fill="#C6A75E">PASSAGE</text>
+                <line x1="260" y1="205" x2="490" y2="205" stroke="url(#goldLuxuryNav)" stroke-width="1" />
+            </svg>
+            <h1 class="luxury-hero__title">Extraordinary Journeys Await</h1>
+            <p class="luxury-hero__subtitle">
+                Discover curated stays, authentic experiences, and hidden culinary treasures
+                crafted for the discerning traveler.
+            </p>
+            <a href="/listings" class="luxury-cta"
+                style="background: transparent; color: white; border: 1px solid rgba(255, 255, 255, 0.6); padding: 1rem 2.5rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease;"
+                onmouseover="this.style.background='white'; this.style.color='black'; this.style.borderColor='white';"
+                onmouseout="this.style.background='transparent'; this.style.color='white'; this.style.borderColor='rgba(255, 255, 255, 0.6)';">
+                Explore Destinations <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <!-- Four Seasons Style Booking Bar -->
+        <div class="booking-bar-wrapper" id="bookingBarWrapper">
+            <form class="booking-bar" action="/listings" method="GET">
+                <!-- Check In Field -->
+                <div class="booking-bar__field checkin">
+                    <label class="booking-bar__label">Check In</label>
+                    <input type="date" class="booking-bar__input" name="checkIn" id="checkInDate"
+                        min="<%= new Date().toISOString().split('T')[0] %>">
+                </div>
+
+                <!-- Check Out Field -->
+                <div class="booking-bar__field checkout">
+                    <label class="booking-bar__label">Check Out</label>
+                    <input type="date" class="booking-bar__input" name="checkOut" id="checkOutDate"
+                        min="<%= new Date().toISOString().split('T')[0] %>">
+                </div>
+
+                <!-- Guests Field -->
+                <div class="booking-bar__field guests">
+                    <label class="booking-bar__label">Guests</label>
+                    <input type="number" class="booking-bar__input" name="guests" id="guestsInput" min="1" max="20"
+                        value="2" placeholder="Number of guests">
+                </div>
+
+                <!-- Promo Field -->
+                <div class="booking-bar__field promo">
+                    <label class="booking-bar__label">Promo</label>
+                    <input type="text" class="booking-bar__input" name="promo" placeholder="Promo Code">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="booking-bar__submit">Check Rates</button>
+            </form>
+
+            <!-- Hide/Show Button - Outside form for proper positioning -->
+            <button type="button" class="booking-bar__hide" id="bookingBarToggle">Hide</button>
+        </div>
+    </section>
+
+    <!-- Experiences Section (Why Choose) -->
+    <section class="experiences-section">
+        <div class="section-divider">
+            <div class="section-divider__line"></div>
+            <i class="section-divider__icon fas fa-gem"></i>
+            <div class="section-divider__line"></div>
+        </div>
+
+        <div class="luxury-section-header">
+            <p class="luxury-section-header__eyebrow">The Elite Passage Difference</p>
+            <h2 class="luxury-section-header__title">Curated Excellence</h2>
+            <p class="luxury-section-header__subtitle">
+                Every detail thoughtfully selected to create unforgettable moments
+                and authentic experiences.
+            </p>
+        </div>
+
+        <div class="experiences-grid">
+            <div class="experience-card">
+                <div class="experience-card__icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="experience-card__title">Verified Sanctuaries</h3>
+                <p class="experience-card__description">
+                    Each property is personally vetted by our travel experts,
+                    ensuring exceptional quality and authentic local character.
+                </p>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-card__icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3 class="experience-card__title">Bespoke Journeys</h3>
+                <p class="experience-card__description">
+                    Rent curated vehicles from local hosts for an immersive
+                    exploration of hidden gems and scenic routes.
+                </p>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-card__icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3 class="experience-card__title">Culinary Discoveries</h3>
+                <p class="experience-card__description">
+                    Uncover authentic dining experiences at hand-picked establishments
+                    celebrated by locals and travelers alike.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="section-divider">
+            <div class="section-divider__line"></div>
+            <i class="section-divider__icon fas fa-users"></i>
+            <div class="section-divider__line"></div>
+        </div>
+
+        <div class="luxury-section-header">
+            <p class="luxury-section-header__eyebrow">Our Team</p>
+            <h2 class="luxury-section-header__title">Meet The Creators</h2>
+            <p class="luxury-section-header__subtitle">
+                The passionate minds behind Elite Passage, dedicated to crafting extraordinary travel experiences.
+            </p>
+        </div>
+
+        <div class="team-grid">
+            <!-- Member 1 -->
+            <div class="team-card">
+                <div class="team-card__avatar">
+                    <img src="/images/team/member1.jpg" alt="Nitin Sable">
+                </div>
+                <h3 class="team-card__name">Nitin Sable</h3>
+                <p class="team-card__role">Full Stack Developer</p>
+                <div class="team-card__responsibilities">
+                    <span>Frontend</span>
+                    <span>Backend</span>
+                    <span>Database</span>
+                    <span>Documentation &amp; Research</span>
+                </div>
+                <div class="team-card__social">
+                    <a href="https://github.com/sablenitin1432-source" target="_blank" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/nitin-sable-792a59332/?isSelfProfile=true" target="_blank"
+                        title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="team-card">
+                <div class="team-card__avatar">
+                    <img src="/images/team/member2.jpg" alt="Rahul Kakde">
+                </div>
+                <h3 class="team-card__name">Rahul Kakde</h3>
+                <p class="team-card__role">Frontend and UI Designer</p>
+                <div class="team-card__responsibilities">
+                    <span>UI/UX Design</span>
+                    <span>Frontend</span>
+                    <span>Responsive Design</span>
+                    <span>Documentation &amp; Research</span>
+                </div>
+                <div class="team-card__social">
+                    <a href="https://github.com/rahulkakde362-boop" target="_blank" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/rahul-kakde-74243a3b6?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                        target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <!-- <div class="team-card">
+                <div class="team-card__avatar">
+                    <img src="/images/team/member3.jpg" alt="Avinash kakde">
+                </div>
+                <h3 class="team-card__name">Avinash Kakde</h3>
+                <p class="team-card__role">Backend Developer</p>
+                <div class="team-card__social">
+                    <a href="https://github.com/Avishkar8888" target="_blank" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/avishkar-chavan-837a8725a/" target="_blank" title="LinkedIn"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div> -->
+
+            <!-- Member 4 -->
+            <!-- <div class="team-card">
+                <div class="team-card__avatar">
+                    <img src="/images/team/member4.jpg" alt="Harshal Sable">
+                </div>
+                <h3 class="team-card__name">Harshal Sable</h3>
+                <p class="team-card__role">Documentation and Research</p>
+                <div class="team-card__social">
+                    <a href="https://share.google/ha6GPZWMYKBlYJqM2" target="_blank" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/pranav-onkare-1307a732a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                        target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Featured Accommodations -->
+    <section class="accommodations-section">
+        <div class="accommodations-header">
+            <div class="accommodations-header__left">
+                <div class="luxury-section-header" style="text-align: left; margin-bottom: 0;">
+                    <p class="luxury-section-header__eyebrow">Featured Stays</p>
+                    <h2 class="luxury-section-header__title">Exceptional Accommodations</h2>
+                </div>
+            </div>
+            <a href="/listings" class="view-all-link">
+                View All <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="accommodations-scroll">
+            <% if(allListings && allListings.length> 0) { %>
+                <% allListings.forEach(listing=> { %>
+                    <a href="/listings/<%= listing._id %>" class="luxury-card">
+                        <div class="luxury-card__image">
+                            <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600' %>"
+                                alt="<%= listing.title %>">
+                            <div class="luxury-card__overlay"></div>
+                            <% if(listing.instantBook) { %>
+                                <span class="luxury-card__badge">Featured</span>
+                                <% } %>
+                                    <div class="luxury-card__content">
+                                        <p class="luxury-card__location">
+                                            <%= listing.location %>, <%= listing.country %>
+                                        </p>
+                                        <h3 class="luxury-card__title">
+                                            <%= listing.title %>
+                                        </h3>
+                                        <div class="luxury-card__details">
+                                            <span class="luxury-card__price">
+                                                ₹<%= listing.price.toLocaleString("en-IN") %> <small>/ night</small>
+                                            </span>
+                                            <span class="luxury-card__rating">
+                                                <i class="fas fa-star"></i> 4.9
+                                            </span>
+                                        </div>
+                                    </div>
+                        </div>
+                    </a>
+                    <% }); %>
+                        <% } else { %>
+                            <p style="text-align: center; color: var(--luxury-text-light); padding: 3rem;">
+                                No accommodations available yet. Check back soon.
+                            </p>
+                            <% } %>
+        </div>
+    </section>
+
+    <!-- Signature Experiences (Vehicles) -->
+    <section class="signature-section">
+        <div class="luxury-section-header">
+            <p class="luxury-section-header__eyebrow">Explore Your Way</p>
+            <h2 class="luxury-section-header__title">Curated Journeys</h2>
+            <p class="luxury-section-header__subtitle">
+                Handpicked vehicles from local hosts for an authentic exploration experience.
+            </p>
+        </div>
+
+        <div class="signature-grid">
+            <% if(allVehicles && allVehicles.length> 0) { %>
+                <% allVehicles.slice(0, 4).forEach(vehicle=> { %>
+                    <a href="/vehicles/<%= vehicle._id %>" class="signature-card">
+                        <div class="signature-card__image">
+                            <img src="<%= vehicle.image && vehicle.image.url ? vehicle.image.url : 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600' %>"
+                                alt="<%= vehicle.title %>">
+                        </div>
+                        <div class="signature-card__content">
+                            <p class="signature-card__category">
+                                <%= vehicle.vehicleType %>
+                            </p>
+                            <h3 class="signature-card__title">
+                                <%= vehicle.title %>
+                            </h3>
+                            <p class="signature-card__description">
+                                <%= vehicle.location %> · ₹<%= vehicle.pricePerDay.toLocaleString("en-IN") %> per day
+                            </p>
+                            <span class="signature-card__link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                    <% }); %>
+                        <% } else { %>
+                            <div class="signature-card" style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                                <p
+                                    style="color: rgba(255,255,255,0.7); font-family: var(--font-elegant); font-size: 1.1rem;">
+                                    Curated vehicle experiences coming soon.
+                                </p>
+                                <a href="/vehicles/new" class="luxury-btn luxury-btn--primary"
+                                    style="margin-top: 1.5rem; display: inline-block;">
+                                    List Your Vehicle
+                                </a>
+                            </div>
+                            <% } %>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/vehicles" class="view-all-link"
+                style="display: inline-flex; border-color: rgba(255,255,255,0.5); color: white;">
+                View All Vehicles <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Culinary Experiences (Dhabas) -->
+    <section class="culinary-section">
+        <div class="accommodations-header">
+            <div class="accommodations-header__left">
+                <div class="luxury-section-header" style="text-align: left; margin-bottom: 0;">
+                    <p class="luxury-section-header__eyebrow">Culinary Excellence</p>
+                    <h2 class="luxury-section-header__title">Authentic Dining</h2>
+                </div>
+            </div>
+            <a href="/dhabas" class="view-all-link">
+                View All <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="accommodations-scroll">
+            <% if(allDhabas && allDhabas.length> 0) { %>
+                <% allDhabas.forEach(dhaba=> { %>
+                    <a href="/dhabas/<%= dhaba._id %>" class="luxury-card">
+                        <div class="luxury-card__image">
+                            <img src="<%= dhaba.image && dhaba.image.url ? dhaba.image.url : 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600' %>"
+                                alt="<%= dhaba.title %>">
+                            <div class="luxury-card__overlay"></div>
+                            <span class="luxury-card__badge">
+                                <%= dhaba.category %>
+                            </span>
+                            <div class="luxury-card__content">
+                                <p class="luxury-card__location">
+                                    <%= dhaba.location %>
+                                </p>
+                                <h3 class="luxury-card__title">
+                                    <%= dhaba.title %>
+                                </h3>
+                                <div class="luxury-card__details">
+                                    <span class="luxury-card__price">
+                                        <%= dhaba.priceRange %>
+                                    </span>
+                                    <span class="luxury-card__rating">
+                                        <i class="fas fa-star"></i>
+                                        <%= dhaba.rating || '4.5' %>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <% }); %>
+                        <% } else { %>
+                            <p style="text-align: center; color: var(--luxury-text-light); padding: 3rem; width: 100%;">
+                                Culinary experiences coming soon.
+                            </p>
+                            <% } %>
+        </div>
+    </section>
+
+    <!-- Luxury CTA Section -->
+    <section class="luxury-cta-section">
+        <div class="luxury-cta-section__content">
+            <p class="luxury-cta-section__eyebrow">Begin Your Journey</p>
+            <h2 class="luxury-cta-section__title">Join the Elite Passage Community</h2>
+            <p class="luxury-cta-section__subtitle">
+                Create an account to unlock exclusive features, save your favorite destinations,
+                and receive personalized recommendations.
+            </p>
+            <div class="luxury-cta-buttons">
+                <a href="/signup" class="luxury-btn luxury-btn--primary" style="color: white !important;"
+                    onmouseover="this.style.color='white !important'; this.style.backgroundColor='transparent !important';"
+                    onmouseout="this.style.color='white !important'; this.style.backgroundColor='var(--luxury-gold) !important';">Create
+                    Account</a>
+                <a href="/login" class="luxury-btn luxury-btn--secondary" style="color: white !important;"
+                    onmouseover="this.style.color='#1a1a2e !important'; this.style.backgroundColor='white !important';"
+                    onmouseout="this.style.color='white !important'; this.style.backgroundColor='transparent !important';">Sign
+                    In</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navbar transparency toggle for hero
+        (function () {
+            const navbar = document.querySelector('.navbar');
+            const hero = document.querySelector('.luxury-hero');
+
+            if (!navbar || !hero) return;
+
+            navbar.classList.add('navbar-transparent');
+
+            function handleScroll() {
+                const heroBottom = hero.offsetHeight - navbar.offsetHeight;
+                if (window.scrollY > heroBottom) {
+                    navbar.classList.remove('navbar-transparent');
+                    navbar.classList.add('navbar-solid');
+                } else {
+                    navbar.classList.add('navbar-transparent');
+                    navbar.classList.remove('navbar-solid');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        })();
+
+        // ===================================
+        // BOOKING BAR FUNCTIONALITY
+        // ===================================
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hide/Show Toggle
+            const bookingBarWrapper = document.getElementById('bookingBarWrapper');
+            const bookingBarToggle = document.getElementById('bookingBarToggle');
+
+            if (bookingBarToggle && bookingBarWrapper) {
+                bookingBarToggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    bookingBarWrapper.classList.toggle('hidden');
+                    this.textContent = bookingBarWrapper.classList.contains('hidden') ? 'Show' : 'Hide';
+                });
+            }
+
+            // Check-in/Check-out date validation
+            const checkInDate = document.getElementById('checkInDate');
+            const checkOutDate = document.getElementById('checkOutDate');
+
+            if (checkInDate && checkOutDate) {
+                checkInDate.addEventListener('change', function () {
+                    if (this.value) {
+                        checkOutDate.min = this.value;
+                        if (checkOutDate.value && checkOutDate.value < this.value) {
+                            checkOutDate.value = '';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
