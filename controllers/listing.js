@@ -125,6 +125,7 @@ module.exports.createListing = async (req, res, next) => {
   console.log(" Saved Listing:", saved);
 
   req.flash("success", "New listing created successfully!");
+  console.log("REDIRECTING TO LISTING:", saved._id);
   res.redirect(`/listings/${saved._id}`);
 };
 
